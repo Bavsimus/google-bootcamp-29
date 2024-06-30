@@ -24,7 +24,7 @@
       <td>Talib Yeşildal</td>
       <td>Scrum Master</td>
       <td>
-        <a href="https://github.com/bavsimus" target="_blank"><img src="readmeassets/social/github.png" width="20" height="20"/></a>
+        <a href="https://github.com/bavsimus" target="_blank"><img src="readmeassets/socials/github.png" width="20" height="20"/></a>
         <a href="https://www.linkedin.com/in/talibyesildal/" target="_blank" ><img src="readmeassets/socials/linkedin.png" width="20" height="20" /></a>
         <a href="https://www.instagram.com/talibyesildal/" target="_blank"><img src="readmeassets/socials/instagram.png" width="20" height="20" /></a>
       </td>
