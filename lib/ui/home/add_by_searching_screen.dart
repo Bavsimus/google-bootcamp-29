@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//
 class AddBySearchingScreen extends StatefulWidget {
   const AddBySearchingScreen({Key? key}) : super(key: key);
 
@@ -38,7 +39,7 @@ class _AddBySearchingScreenState extends State<AddBySearchingScreen> {
           ),
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3, // Üç sütunlu bir grid
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
