@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -91,7 +90,10 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            ContainerWidgetBooks(screenHeight: screenHeight, popularBooks: popularBooks, screenWidth: screenWidth),
+            ContainerWidgetBooks(
+                screenHeight: screenHeight,
+                popularBooks: popularBooks,
+                screenWidth: screenWidth),
             Padding(
               padding: ProjectPaddings.pagePaddingAll,
               child: Text(
@@ -99,7 +101,10 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            ContainerWidgetBooks(screenHeight: screenHeight, popularBooks: friendBooks, screenWidth: screenWidth),
+            ContainerWidgetBooks(
+                screenHeight: screenHeight,
+                popularBooks: friendBooks,
+                screenWidth: screenWidth),
           ],
         ),
       ),
@@ -110,7 +115,8 @@ class _HomePageState extends State<HomePage> {
           FloatingActionButton(
             onPressed: () => _onItemTapped(0),
             child: Icon(Icons.home),
-            backgroundColor: _selectedIndex == 0 ? ProjectColors.greenColor : Colors.grey,
+            backgroundColor:
+                _selectedIndex == 0 ? ProjectColors.greenColor : Colors.grey,
           ),
           FloatingActionButton(
             onPressed: () => _onItemTapped(1),
