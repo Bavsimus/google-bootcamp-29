@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final String popularThisWeek = 'Popular this week';
-  final String newFromFrineds = 'New from frineds';
+  final String newFromFrineds = 'New from friends';
   final String labelHome = 'Home';
   final String labelScan = 'Scan and Add';
   final String labelProfile = 'Profile';
@@ -64,6 +64,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -89,30 +91,7 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            Container(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: popularBooks.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 150,
-                    margin: ProjectPaddings.pagePaddingAll,
-                    child: Column(
-                      children: [
-                        Image.network(
-                          popularBooks[index],
-                          height: 120,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                        Text('LibHub'),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
+            ContainerWidgetBooks(screenHeight: screenHeight, popularBooks: popularBooks, screenWidth: screenWidth),
             Padding(
               padding: ProjectPaddings.pagePaddingAll,
               child: Text(
@@ -120,30 +99,7 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            Container(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: friendBooks.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 150,
-                    margin: ProjectPaddings.pagePaddingAll,
-                    child: Column(
-                      children: [
-                        Image.network(
-                          friendBooks[index],
-                          height: 120,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                        Text('LibHub'),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
+            ContainerWidgetBooks(screenHeight: screenHeight, popularBooks: friendBooks, screenWidth: screenWidth),
           ],
         ),
       ),
@@ -180,9 +136,50 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ProjectPaddings {
-  static const pagePaddingAll = EdgeInsets.all(10.0);
+  static const pagePaddingAll = EdgeInsets.all(6.0);
 }
 
 class ProjectColors {
   static const greenColor = Color(0xFF3C6E71);
+}
+
+class ContainerWidgetBooks extends StatelessWidget {
+  const ContainerWidgetBooks({
+    super.key,
+    required this.screenHeight,
+    required this.popularBooks,
+    required this.screenWidth,
+  });
+
+  final double screenHeight;
+  final List popularBooks;
+  final double screenWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: screenHeight * 0.3,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: popularBooks.length,
+        itemBuilder: (context, index) {
+          return Container(
+            width: screenWidth * 0.4,
+            margin: ProjectPaddings.pagePaddingAll,
+            child: Column(
+              children: [
+                Image.network(
+                  popularBooks[index],
+                  height: screenHeight * 0.2,
+                  width: screenWidth * 0.3,
+                  fit: BoxFit.cover,
+                ),
+                Text('LibHub'),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
