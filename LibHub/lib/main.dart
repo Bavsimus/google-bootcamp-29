@@ -5,5 +5,6 @@ import 'package:libhub/di/get_it.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupDI(); // call it after the binding so that they can be ready
+
   runApp(const LibHub());
 }

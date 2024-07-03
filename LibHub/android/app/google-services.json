@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041069115258",
+    "project_id": "libhub-project-oua",
+    "storage_bucket": "libhub-project-oua.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041069115258:android:0cc0fe67ca9f2c22d6b8c3",
+        "android_client_info": {
+          "package_name": "com.example.libhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBpXn0_KXKnXCwceDwXk-4sWcFKwySNhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

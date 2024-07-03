@@ -1,0 +1,7 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnType": true,
+  "cmake.sourceDirectory": "/Users/senaektiricioglu/Coding-Projects-Flutter/Oyun_ve_Uygulama_Akademisi/demo5_example_app_oua/linux"
+}
