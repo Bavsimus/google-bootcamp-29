@@ -80,7 +80,7 @@ class LoginView extends StatelessWidget {
                       CustomRegisterationButton(
                         text: "Login",
                         onPressed: () async {
-                          // viewmodel.pressOnLogin(context);
+                          viewmodel.goToHomePage();
                         },
                       ),
                       CustomDivider(text: "or"),

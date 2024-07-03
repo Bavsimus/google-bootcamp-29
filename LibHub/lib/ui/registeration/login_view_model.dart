@@ -9,15 +9,17 @@ class LoginViewModel extends AppBaseViewModel {
   bool isChecked = false;
 
   @override
-  init() {
-   
-  }
+  init() {}
 
-    void goToSignUpPage() {
+  void goToSignUpPage() {
     navigationService.clearStackAndShow(Routes.signUpView);
   }
 
   void goToForgotPasswordPage() {
     navigationService.navigateTo(Routes.forgotPasswordView);
+  }
+
+  void goToHomePage() {
+    navigationService.navigateTo(Routes.homePage);
   }
 }
