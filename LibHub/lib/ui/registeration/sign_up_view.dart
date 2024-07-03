@@ -1,20 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:libhub/ui/registeration/login_view_model.dart';
-import 'package:libhub/widgets/continue_with_google_button.dart';
-import 'package:libhub/widgets/custom_divider.dart';
+import 'package:libhub/ui/registeration/sign_up_view_model.dart';
 import 'package:libhub/widgets/custom_registeration_button.dart';
 import 'package:libhub/widgets/custom_registeration_text_button.dart';
 import 'package:libhub/widgets/user_registeration_data_field.dart';
 import 'package:stacked/stacked.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class SignUpView extends StatelessWidget {
+  const SignUpView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
-        viewModelBuilder: () => LoginViewModel(),
+    return ViewModelBuilder<SignUpViewModel>.reactive(
+        viewModelBuilder: () => SignUpViewModel(),
         onViewModelReady: (viewmodel) => viewmodel
             .init(), // viewmodel hazır olduğunda modelden init fonksiyonunu çağır
         disposeViewModel: false,
@@ -25,15 +24,34 @@ class LoginView extends StatelessWidget {
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 backgroundColor: const Color.fromARGB(255, 71, 188, 167),
               ),
-              body: Center(
-                child: Form(
+              body: Form(
+                child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Let's create an account for you!",
+                            style: TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      UserRegisterationDataField(
+                        controller: viewmodel.userNameController,
+                        hintText: "User Name",
+                        labelText: "User Name",
+                        iconData: Icons.person,
+                        isCompulsory: true,
+                      ),
+                      const SizedBox(height: 10),
                       UserRegisterationDataField(
                         controller: viewmodel.emailController,
                         hintText: "Email",
                         labelText: "Email",
+                        isCompulsory: true,
                         iconData: Icons.email,
                       ),
                       const SizedBox(height: 10),
@@ -41,9 +59,21 @@ class LoginView extends StatelessWidget {
                         controller: viewmodel.passwordController,
                         hintText: "Password",
                         labelText: "Password",
-                        isObscureText: true,
+                        isCompulsory: true,
                         iconData: Icons.lock,
+                        isObscureText: true,
+                        isPassword: true,
                       ),
+                      const SizedBox(height: 10),
+                      UserRegisterationDataField(
+                        controller: viewmodel.cityController,
+                        hintText: "City",
+                        labelText: "City",
+                        isCompulsory: true,
+                        iconData: Icons.location_city,
+                        isObscureText: true,
+                      ),
+
                       // Row(
                       //   mainAxisAlignment: MainAxisAlignment.start,
                       //   children: [
@@ -53,8 +83,7 @@ class LoginView extends StatelessWidget {
                       //     Checkbox(
                       //       value: viewmodel.isChecked,
                       //       onChanged: (value) {
-                      //         viewmodel.isChecked =
-                      //             value!; // TODO: Check this
+                      //         viewmodel.isChecked = value!; //TODO: Check this
                       //       },
                       //     ),
                       //     const Text(
@@ -65,46 +94,25 @@ class LoginView extends StatelessWidget {
                       //     ),
                       //   ],
                       // ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: CustomRegisterationTextButton(
-                            onPressed: () {
-                              viewmodel.goToForgotPasswordPage();
-                            },
-                            text: "Forgot Password?",
-                          ),
-                        ),
-                      ),
+                      const SizedBox(height: 10),
                       CustomRegisterationButton(
-                        text: "Login",
-                        onPressed: () async {
-                          // viewmodel.pressOnLogin(context);
-                        },
-                      ),
-                      CustomDivider(text: "or"),
-                      ContinueWithGoogle(onPressed: () {}),
+                          text: "Sign In",
+                          onPressed: () async {
+                            // viewmodel.pressOnSignIn(context, userType);
+                          }),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            "Don't have an account?",
+                            "Already have an account?",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           CustomRegisterationTextButton(
-                            onPressed: viewmodel.goToSignUpPage,
-                            text: "Sign Up!",
-                          ),
+                              onPressed: viewmodel.goToLoginPage,
+                              text: "Login!"),
                         ],
-                      ),
-                      CustomRegisterationTextButton(
-                          onPressed: () {
-                            // viewmodel.pressOnContinueWithoutRegisteration(context);
-                          },
-                          text: "Continue without registeration!"),
-                      const SizedBox(height: 30),
+                      )
                     ],
                   ),
                 ),
