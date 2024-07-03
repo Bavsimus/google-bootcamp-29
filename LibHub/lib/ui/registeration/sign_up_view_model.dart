@@ -6,6 +6,7 @@ class SignUpViewModel extends AppBaseViewModel {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
   bool isChecked = false;
 
   @override
