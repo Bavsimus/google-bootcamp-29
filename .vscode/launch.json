@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "LibHub",
+            "cwd": "LibHub",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "LibHub (profile mode)",
+            "cwd": "LibHub",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "LibHub (release mode)",
+            "cwd": "LibHub",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
