@@ -9,8 +9,8 @@ import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(routes: [
   MaterialRoute(page: LoginView),
-  MaterialRoute(page: HomePage),
-  MaterialRoute(page: SplashView, initial: true),
+  MaterialRoute(page: HomePage, initial: true),
+  MaterialRoute(page: SplashView),
   MaterialRoute(page: ForgotPasswordView),
   MaterialRoute(page: SignUpView),
   MaterialRoute(page: PersonalLibraryView)
