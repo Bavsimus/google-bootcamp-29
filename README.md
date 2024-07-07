@@ -89,7 +89,7 @@
 
 ## Kanban
 
-[Trello](readmeassets/sprint1/kanban1.png)
+![Trello](readmeassets/sprint1/kanban1.png)
 
 ---
 
