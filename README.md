@@ -70,10 +70,10 @@
       </td>
     </tr>
 
-    <h2>Ürün Açıklaması</h2>
+  <h2>Ürün Açıklaması</h2>
     <p>LibHub ile okuduğunuz kitapları biriktirebileceğiniz bir kütüphaneye sahip olabilirsiniz. Kütüphanelerinizi arkadaşlarınız ile paylaşabilir ve en sevdiğiniz kitap hakkında yorumları inceleyebilirsiniz. Ayrıca arkadaşınızın veya merak ettiğiniz bir kişinin bu kitabı nasıl bir rutinle ne kadar sürede bitirdiğini de görebilirsiniz!</p>
 
-    <h2>Ürün Özellikleri</h2>
+  <h2>Ürün Özellikleri</h2>
     <ul>
         <li>Kendi kütüphaneni oluşturma</li>
         <li>Kitapların kapağı, yazarı, konusu ve okuyan insanların düşüncelerini görebilme</li>
@@ -82,31 +82,31 @@
         <li>Çevrendeki insanlarla kitap takası yapma</li>
     </ul>
 
-    <h2>Hedef Kitle</h2>
+  <h2>Hedef Kitle</h2>
     <ul>
         <li>Kitap okuyucuları</li>
         <li>15 - 65 yaş arası kullanıcılar</li>
     </ul>
 
-    <h2>Kanban</h2>
+  <h2>Kanban</h2>
     <img src="readmeassets/sprint1/kanban1.png" alt="Trello Kanban">
 
-    <hr>
+  <hr>
 
-    <h1>Sprint 1</h1>
+  <h1>Sprint 1</h1>
 
-    <h3>Sprint Notları</h3>
+  <h3>Sprint Notları</h3>
     <p>User Story'ler product backlog hazırlandı.</p>
 
-    <h3>Backlog düzeni ve Story seçimleri</h3>
+  <h3>Backlog düzeni ve Story seçimleri</h3>
     <p>Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir.</p>
     <p>Story'ler yapılacak işlere (task'lere) bölünmüştür. Tasklar kendi içinde optional ve must şeklinde kontrol listeleriyle hazırlandı. Trello görüntüleri aşağıda paylaşıldı.</p>
 
-    <h3>Daily Scrum</h3>
+  <h3>Daily Scrum</h3>
     <p>Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Discord düzeni bu şekildedir:</p>
     <img src="readmeassets/sprint1/discord1.png" alt="Discord Düzeni">
 
-    <h3>Ürün Durumu</h3>
+  <h3>Ürün Durumu</h3>
     <p>Ekran görüntüleri:</p>
     <img src="readmeassets/sprint1/ss/login1.jpeg" alt="Screenshot 1">
     <img src="readmeassets/sprint1/ss/login2.jpeg" alt="Screenshot 1">
@@ -117,13 +117,13 @@
     <img src="readmeassets/sprint1/ss/bookscan.jpeg" alt="Book Scan Screenshot">
     <img src="readmeassets/sprint1/ss/yourlibhub.jpeg" alt="Your LibHub Screenshot">
 
-    <h3>Sprint Review</h3>
+  <h3>Sprint Review</h3>
     <p>Alınan kararlar: Katmanlı mimari çerçevesinde çalışılacaktır. Veritabanı oluşturması kullanıcı verileri ve kitap bilgileri için gerekli görülmüştür, bir sonraki sprint için planlandı. İlk sprint için gerekli görülen tasklar tamamlanmıştır, birbirleriyle bağlanabilir olmaları testi başarılı olmuştur fakat bağlantı işlemleri önümüzdeki sprinte planlanmıştır. Temel sayfalar ve fonksiyonlar oluşturulmuştur fakat elde edilen görüntü birbiriyle uyumlu hale getirilecektir.</p>
 
-    <h3>Sprint Retrospective</h3>
+  <h3>Sprint Retrospective</h3>
     <p>Takımın toplantı planlamaları gözden geçirilmeli katılım artmalı ve çakışmalar engellenmelidir.</p>
 
-    <h3>Diğer Notlar</h3>
+  <h3>Diğer Notlar</h3>
     <p>N/A</p>
 
   </body>
