@@ -106,6 +106,10 @@
 <p>Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir.</p>
 <p>Story'ler yapılacak işlere (task'lere) bölünmüştür. Tasklar kendi içinde optional ve must şeklinde kontrol listeleriyle hazırlandı. Trello görüntüleri aşağıda paylaşıldı.</p>
 
+<p>Sprint içinde tamamlanması tahmin edilen puan: 100 Puan</p>
+<p>Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 320 puanlık backlog bulunmaktadır. 4 sprint'e bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.</p>
+<p>Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır. Story başına çıkan tahmin puanı, toplam puanın yarısından az tutulmuştur.</p>
+
 <h3>Daily Scrum</h3>
 <p>Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Discord düzeni bu şekildedir:</p>
 <img src="readmeassets/sprint1/discord1.png" alt="Discord Düzeni">
