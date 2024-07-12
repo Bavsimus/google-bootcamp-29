@@ -57,9 +57,8 @@
         <td>Sevde Nur Ağba</td>
         <td>Developer</td>
         <td>
-            <a href="https://github.com/" target="_blank"><img src="readmeassets/socials/github.png" width="20" height="20"/></a>
-            <a href="https://www.linkedin.com/in/" target="_blank"><img src="readmeassets/socials/linkedin.png" width="20" height="20" /></a>
-            <a href="https://www.instagram.com/" target="_blank"><img src="readmeassets/socials/instagram.png" width="20" height="20" /></a>
+            <a href="https://github.com/sevdenuragba" target="_blank"><img src="readmeassets/socials/github.png" width="20" height="20"/></a>
+            <a href="https://www.linkedin.com/in/sevdenuragba/" target="_blank"><img src="readmeassets/socials/linkedin.png" width="20" height="20" /></a>
         </td>
     </tr>
     <tr>
@@ -97,7 +96,8 @@
 
 <hr>
 
-<h1>Sprint 1</h1>
+<details>
+<summary><h1>Sprint 1</h1></summary>
 
 <h3>Sprint Notları</h3>
 <p>User Story'ler product backlog hazırlandı.</p>
@@ -133,6 +133,7 @@
 
 <h3>Diğer Notlar</h3>
 <p>N/A</p>
+</details>
 
 </body>
 </html>
