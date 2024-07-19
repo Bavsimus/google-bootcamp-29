@@ -8,9 +8,9 @@ import 'package:libhub/ui/splash/splash_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(routes: [
-  MaterialRoute(page: LoginView),
-  MaterialRoute(page: HomePage),
-  MaterialRoute(page: SplashView, initial: true),
+  MaterialRoute(page: LoginView, initial: true),
+  MaterialRoute(page: HomePage ),
+  MaterialRoute(page: SplashView),
   MaterialRoute(page: ForgotPasswordView),
   MaterialRoute(page: SignUpView),
   MaterialRoute(page: PersonalLibraryView)

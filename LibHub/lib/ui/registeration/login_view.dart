@@ -27,6 +27,7 @@ class LoginView extends StatelessWidget {
               ),
               body: Center(
                 child: Form(
+                  key: viewmodel.formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -80,7 +81,7 @@ class LoginView extends StatelessWidget {
                       CustomRegisterationButton(
                         text: "Login",
                         onPressed: () async {
-                          viewmodel.goToHomePage();
+                          viewmodel.pressOnLogin(context);
                         },
                       ),
                       CustomDivider(text: "or"),
