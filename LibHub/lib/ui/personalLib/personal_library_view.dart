@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'personal_library_viewmodel.dart';
+import 'profile_tab.dart';
 
 class PersonalLibraryView extends StatelessWidget {
+  const PersonalLibraryView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PersonalLibraryViewModel>.reactive(
@@ -11,18 +14,28 @@ class PersonalLibraryView extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
+            preferredSize: const Size.fromHeight(kToolbarHeight),
             child: AppBar(
               automaticallyImplyLeading: false,
               flexibleSpace: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   TabBar(
-                    indicatorColor: Color.fromARGB(
+                    indicatorColor: const Color.fromARGB(
                         255, 33, 116, 93), // Tab göstergesi rengi
-                    labelColor: Color.fromARGB(
+                    labelColor: const Color.fromARGB(
                         255, 33, 116, 93), // Seçili tab yazı rengi
-                    tabs: [
+                    unselectedLabelColor: const Color.fromARGB(
+                        255, 80, 177, 149), // Seçili olmayan tab yazı rengi
+                    overlayColor: WidgetStateColor.resolveWith((states) {
+                      if (states.contains(WidgetState.pressed) ||
+                          states.contains(WidgetState.hovered)) {
+                        return const Color.fromARGB(
+                            255, 33, 116, 93); // Hover ve tıklama rengi
+                      }
+                      return Colors.transparent; // Diğer durumlarda şeffaf
+                    }),
+                    tabs: const [
                       Tab(text: 'LibHub'),
                       Tab(text: 'Profile'),
                     ],
@@ -45,16 +58,16 @@ class PersonalLibraryView extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                       ),
                     ),
                   ),
                   Expanded(
-                    child: BooksGridView(books: model.books),
+                    child: BooksGridView(books: model.filteredBooks),
                   ),
                 ],
               ),
-              Center(child: Text('This page is intentionally left blank')),
+              const ProfileTab(), // ProfileTab buraya ekleniyor
             ],
           ),
           floatingActionButton: FloatingActionButton(
@@ -63,7 +76,7 @@ class PersonalLibraryView extends StatelessWidget {
                   'New Book', 'New Writer', 'https://example.com/new_book.jpg');
             },
             tooltip: 'Add book',
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
         ),
       ),
@@ -74,15 +87,16 @@ class PersonalLibraryView extends StatelessWidget {
 class BooksGridView extends StatelessWidget {
   final List<Book> books;
 
-  BooksGridView({required this.books});
+  const BooksGridView({super.key, required this.books});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          horizontal: 16.0), // Kitap kutularına sağ ve sol padding ekleme
       child: GridView.builder(
         itemCount: books.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 10.0,
           mainAxisSpacing: 10.0,
@@ -92,10 +106,10 @@ class BooksGridView extends StatelessWidget {
           final book = books[index];
           Color boxColor = index % 2 == 0
               ? Colors.blueGrey
-              : Color.fromARGB(255, 33, 116, 93);
+              : const Color.fromARGB(255, 33, 116, 93);
 
           return Container(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(8.0),
@@ -118,7 +132,7 @@ class BooksGridView extends StatelessWidget {
                 Text(
                   book.title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                     color: Colors.white,
@@ -130,7 +144,7 @@ class BooksGridView extends StatelessWidget {
                 Text(
                   book.author,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12,
                     color: Colors.white,
                   ),
