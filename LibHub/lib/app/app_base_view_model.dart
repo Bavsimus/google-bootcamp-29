@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:libhub/di/get_it.dart';
+import 'package:libhub/core/di/get_it.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
