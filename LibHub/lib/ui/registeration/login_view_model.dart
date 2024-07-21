@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:libhub/app/app.router.dart';
 import 'package:libhub/app/app_base_view_model.dart';
 import 'package:libhub/core/services/firebase_services.dart';
+import 'package:libhub/widgets/custom_dialog.dart';
 
 class LoginViewModel extends AppBaseViewModel {
   final formKey = GlobalKey<FormState>();
@@ -20,20 +21,11 @@ class LoginViewModel extends AppBaseViewModel {
       final result = await firebaseService.login(
           context, emailController.text, passwordController.text);
 
-      // if (result == "PaidClient") {
-        navigationService.navigateTo(Routes.homePage);
-      // } else if (result == "FreeClient") {
-      //   navigationService.navigateTo(Routes.freeClientHomePageView);
-      // } else if (result == "Dietician") {
-      //   navigationService.navigateTo(Routes.viewMyClients);
-      // } else {
-      //   showCustomDialog(context: context, title: "Error!", text: result!);
-      // }
+      navigationService.clearStackAndShow(Routes.personalLibraryView);
+
     }
     notifyListeners();
   }
-
-
 
   void goToSignUpPage() {
     navigationService.clearStackAndShow(Routes.signUpView);

@@ -24,7 +24,7 @@ class SignUpViewModel extends AppBaseViewModel {
   }
 
   Future<void> pressOnSignIn(BuildContext context) async {
-    if (formKey.currentState!.validate() ) {
+    if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
       final result = await firebaseservice.signIn(
@@ -32,9 +32,9 @@ class SignUpViewModel extends AppBaseViewModel {
           userName: userNameController.text,
           email: emailController.text,
           password: passwordController.text);
-      log("ressign in viewmodel() ->" + result.toString());
+      log("sign in viewmodel() ->" + result.toString());
       // if (result) {
-      navigationService.navigateTo(Routes.homePage);
+      navigationService.clearStackAndShow(Routes.personalLibraryView);
       // } else {
       //   showCustomDialog(context: context, title: "Error!", text: result!);
       // }

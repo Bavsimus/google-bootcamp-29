@@ -25,88 +25,91 @@ class LoginView extends StatelessWidget {
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 backgroundColor: const Color.fromARGB(255, 71, 188, 167),
               ),
-              body: Center(
-                child: Form(
-                  key: viewmodel.formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      UserRegisterationDataField(
-                        controller: viewmodel.emailController,
-                        hintText: "Email",
-                        labelText: "Email",
-                        iconData: Icons.email,
-                      ),
-                      const SizedBox(height: 10),
-                      UserRegisterationDataField(
-                        controller: viewmodel.passwordController,
-                        hintText: "Password",
-                        labelText: "Password",
-                        isObscureText: true,
-                        iconData: Icons.lock,
-                      ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.start,
-                      //   children: [
-                      //     const SizedBox(
-                      //       width: 10,
-                      //     ),
-                      //     Checkbox(
-                      //       value: viewmodel.isChecked,
-                      //       onChanged: (value) {
-                      //         viewmodel.isChecked =
-                      //             value!; // TODO: Check this
-                      //       },
-                      //     ),
-                      //     const Text(
-                      //       "Remember Me",
-                      //       style: TextStyle(
-                      //           color: Colors.black,
-                      //           fontWeight: FontWeight.bold),
-                      //     ),
-                      //   ],
-                      // ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: CustomRegisterationTextButton(
-                            onPressed: () {
-                              viewmodel.goToForgotPasswordPage();
-                            },
-                            text: "Forgot Password?",
+              body: SingleChildScrollView(
+                child: Center(
+                  child: Form(
+                    key: viewmodel.formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 100),
+                        UserRegisterationDataField(
+                          controller: viewmodel.emailController,
+                          hintText: "Email",
+                          labelText: "Email",
+                          iconData: Icons.email,
+                        ),
+                        const SizedBox(height: 10),
+                        UserRegisterationDataField(
+                          controller: viewmodel.passwordController,
+                          hintText: "Password",
+                          labelText: "Password",
+                          isObscureText: true,
+                          iconData: Icons.lock,
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: [
+                        //     const SizedBox(
+                        //       width: 10,
+                        //     ),
+                        //     Checkbox(
+                        //       value: viewmodel.isChecked,
+                        //       onChanged: (value) {
+                        //         viewmodel.isChecked =
+                        //             value!; // TODO: Check this
+                        //       },
+                        //     ),
+                        //     const Text(
+                        //       "Remember Me",
+                        //       style: TextStyle(
+                        //           color: Colors.black,
+                        //           fontWeight: FontWeight.bold),
+                        //     ),
+                        //   ],
+                        // ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: CustomRegisterationTextButton(
+                              onPressed: () {
+                                viewmodel.goToForgotPasswordPage();
+                              },
+                              text: "Forgot Password?",
+                            ),
                           ),
                         ),
-                      ),
-                      CustomRegisterationButton(
-                        text: "Login",
-                        onPressed: () async {
-                          viewmodel.pressOnLogin(context);
-                        },
-                      ),
-                      CustomDivider(text: "or"),
-                      ContinueWithGoogle(onPressed: () {}),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Don't have an account?",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          CustomRegisterationTextButton(
-                            onPressed: viewmodel.goToSignUpPage,
-                            text: "Sign Up!",
-                          ),
-                        ],
-                      ),
-                      CustomRegisterationTextButton(
-                          onPressed: () {
-                            // viewmodel.pressOnContinueWithoutRegisteration(context);
+                        CustomRegisterationButton(
+                          text: "Login",
+                          onPressed: () async {
+                            viewmodel.pressOnLogin(context);
                           },
-                          text: "Continue without registeration!"),
-                      const SizedBox(height: 30),
-                    ],
+                        ),
+                        CustomDivider(text: "or"),
+                        ContinueWithGoogle(onPressed: () {}),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Don't have an account?",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            CustomRegisterationTextButton(
+                              onPressed: viewmodel.goToSignUpPage,
+                              text: "Sign Up!",
+                            ),
+                          ],
+                        ),
+                        CustomRegisterationTextButton(
+                            onPressed: () {
+                              // viewmodel.pressOnContinueWithoutRegisteration(context);
+                            },
+                            text: "Continue without registeration!"),
+                        const SizedBox(height: 30),
+                      ],
+                    ),
                   ),
                 ),
               ),
