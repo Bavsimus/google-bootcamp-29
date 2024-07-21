@@ -34,7 +34,7 @@ class SignUpViewModel extends AppBaseViewModel {
           password: passwordController.text);
       log("sign in viewmodel() ->" + result.toString());
       // if (result) {
-      navigationService.clearStackAndShow(Routes.personalLibraryView);
+      navigationService.clearStackAndShow(Routes.homePage);
       // } else {
       //   showCustomDialog(context: context, title: "Error!", text: result!);
       // }

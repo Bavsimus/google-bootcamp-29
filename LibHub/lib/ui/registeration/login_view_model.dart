@@ -24,7 +24,7 @@ class LoginViewModel extends AppBaseViewModel {
       
       // If the login is successful, the user is redirected to the personal library page.
       if (result == "successful") {
-        navigationService.clearStackAndShow(Routes.personalLibraryView);
+        navigationService.clearStackAndShow(Routes.homePage);
       } else {
         // Handle login failure (e.g., show a message to the user)
         ScaffoldMessenger.of(context).showSnackBar(
