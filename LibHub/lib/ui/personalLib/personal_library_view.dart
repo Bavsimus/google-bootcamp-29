@@ -12,8 +12,8 @@ class PersonalLibraryView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 8.0),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 8.0),
+              decoration: const BoxDecoration(
                 color: Colors.blue, // Yazının arkaplan rengi
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20.0), // Alt sol köşe
@@ -22,7 +22,7 @@ class PersonalLibraryView extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     'Your LibHub',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -30,7 +30,7 @@ class PersonalLibraryView extends StatelessWidget {
                       color: Colors.black, // Yazı rengi
                     ),
                   ),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   Expanded(
                     child: Container(
                       height: 2.0,
@@ -47,7 +47,7 @@ class PersonalLibraryView extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 child: GridView.builder(
                   itemCount: model.books.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3, // Her sırada 3 kitap
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,

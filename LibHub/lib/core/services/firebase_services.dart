@@ -7,6 +7,11 @@ class FirebaseService {
   final firebaseAuth = FirebaseAuth.instance;
   final firebaseFirestore = FirebaseFirestore.instance;
 
+    User getCurrentUser() {
+    return firebaseAuth.currentUser!;
+  }
+
+
   Future<String?> login(BuildContext context, email, String password) async {
     String? res;
     try {
@@ -19,9 +24,7 @@ class FirebaseService {
       } else {
         res = "failed";
       }
-
     } on FirebaseAuthException catch (e) {
-      
       switch (e.code) {
         case "user-not-found" || "wrong-password":
           res = "User is not found or invalid password";
@@ -44,15 +47,27 @@ class FirebaseService {
     return res;
   }
 
-  Future<String?> signIn(
-      {required BuildContext context,
-      required String userName,
-      required String email,
-      required String password}) async {
+  Future<String?> signIn({
+    required BuildContext context,
+    required String userName,
+    required String email,
+    required String password,
+    String? city,
+  }) async {
     String? res;
     try {
       final result = await firebaseAuth.createUserWithEmailAndPassword(
           email: email.trim(), password: password.trim());
+
+      try {
+        final resultData = await firebaseFirestore.collection("users").add({
+          "userName": userName,
+          "email": email,
+          "city": city,
+        });
+      } catch (e) {
+        log("catch 2 ->$e");
+      }
     } on FirebaseAuthException catch (e) {
       log("catch 1 ->${e.code}");
       switch (e.code) {
