@@ -135,5 +135,42 @@
 <p>N/A</p>
 </details>
 
+ <details>
+    <summary><h1>Sprint 2</h1></summary>
+  <details>
+    <summary><h3>Sprint 2 - Ekran görüntüleri</h3></summary>
+  <table style="width: 100%;">
+    <tr>
+      <td colspan="4" style="text-align: center;"><h2>Güncellenen Sayfalar</h2></td>
+    </tr>
+    <tr>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/ss1.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/ss2.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/ss3.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/ss4.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/ss5.png" style="max-width: 100%; height: auto;"></td>
+  </table>
+  </details>  
+
+  <details>
+    <summary><h3>Sprint 2 - Sprint Board</h3></summary>
+    <img src="readmeassets\sprint2/trello.png" style="max-width: 100%; height: auto;">
+  </details>
+
+  - **Sprint Notları**:
+    - Kullanıcı üzerine çalışmalar gerçekleştirildi.
+  - **Sprint içinde tamamlanması tahmin edilen puan**: 100 puan.
+  - **Puan tamamlama mantığı**: Toplamda proje boyunca tamamlanması gereken 320 puanlık backlog bulunmaktadır. 4 sprint'e bölündüğünde ikinci sprint'te 100 puan tamamlanmasına karar verildi.
+  - **Daily Scrum**: Daily Scrum toplantıları Discord üzerinden yapılmaya devam etmekte, ayrıca WhatsApp üzerinden de iletişimdeyiz.
+  - **Sprint Review**:
+    - İkinci sprint için gerekli görülen tasklar büyük oranda tamamlanmıştır.
+    - Tamamlanan taskların bağlantı işlemleri tamamlanmıştır.
+    - Ara sayfalar ve fonksiyonlar oluşturulmuştur fakat elde edilen görüntü birbiriyle uyumlu hale getirilecektir.
+  - **Sprint Retrospective:**
+    - Ekip üyelerinin iletişimini güçlendirmesi gerekmektedir.
+    - Tamamlanan taskların sayısı arttırılmalıdır.
+  - **Other Notes**: N/A
+
+  </details>
 </body>
 </html>
