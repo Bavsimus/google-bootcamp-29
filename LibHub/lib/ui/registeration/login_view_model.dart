@@ -16,16 +16,31 @@ class LoginViewModel extends AppBaseViewModel {
   init() {}
 
   Future<void> pressOnLogin(BuildContext context) async {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
+  if (formKey.currentState != null && formKey.currentState!.validate()) {
+    formKey.currentState!.save();
+    try {
       final result = await firebaseService.login(
           context, emailController.text, passwordController.text);
-
-      navigationService.clearStackAndShow(Routes.personalLibraryView);
-
+      
+      // If the login is successful, the user is redirected to the personal library page.
+      if (result == "successful") {
+        navigationService.clearStackAndShow(Routes.personalLibraryView);
+      } else {
+        // Handle login failure (e.g., show a message to the user)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed. Please try again.'))
+        );
+      }
+    } catch (e) {
+      // Handle any exceptions thrown during the login process
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred. Please try again.'))
+      );
     }
-    notifyListeners();
   }
+  notifyListeners();
+}
+
 
   void goToSignUpPage() {
     navigationService.clearStackAndShow(Routes.signUpView);

@@ -13,7 +13,15 @@ class FirebaseService {
       final result = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       log("result(login) -> $result");
+
+      if (result.user != null) {
+        res = "successful";
+      } else {
+        res = "failed";
+      }
+
     } on FirebaseAuthException catch (e) {
+      
       switch (e.code) {
         case "user-not-found" || "wrong-password":
           res = "User is not found or invalid password";
@@ -23,6 +31,7 @@ class FirebaseService {
           break;
         case "invalid-credential":
           res = "Wrong credentials";
+          log("invalid cr ->${e.code}");
           break;
         case "email-already-in-use":
           res = "There is already an account with this email";
