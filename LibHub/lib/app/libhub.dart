@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:libhub/app/app.router.dart';
 import 'package:libhub/app/app_base_view_model.dart';
-import 'package:libhub/di/get_it.dart';
+import 'package:libhub/core/di/get_it.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
