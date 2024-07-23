@@ -162,6 +162,15 @@
   - **Sprint içinde tamamlanması tahmin edilen puan**: 100 puan.
   - **Puan tamamlama mantığı**: Toplamda proje boyunca tamamlanması gereken 320 puanlık backlog bulunmaktadır. 4 sprint'e bölündüğünde ikinci sprint'te 100 puan tamamlanmasına karar verildi.
   - **Daily Scrum**: Daily Scrum toplantıları Discord üzerinden yapılmaya devam etmekte, ayrıca WhatsApp üzerinden de iletişimdeyiz.
+  - **Sprint Review**:
+    - İkinci sprint için gerekli görülen tasklar büyük oranda tamamlanmıştır.
+    - Tamamlanan taskların bağlantı işlemleri tamamlanmıştır.
+    - Ara sayfalar ve fonksiyonlar oluşturulmuştur fakat elde edilen görüntü birbiriyle uyumlu hale getirilecektir.
+  - **Sprint Retrospective:**
+    - Ekip üyelerinin iletişimini güçlendirmesi gerekmektedir.
+    - Tamamlanan taskların sayısı arttırılmalıdır.
+  - **Other Notes**: N/A
+
   <details>
     <summary><h3>Ekran görüntüleri</h3></summary>
   <table style="width: 100%;">
@@ -174,15 +183,6 @@
       <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/wp4.png" style="max-width: 100%; height: auto;"></td>
   </table>
   </details> 
-  - **Sprint Review**:
-    - İkinci sprint için gerekli görülen tasklar büyük oranda tamamlanmıştır.
-    - Tamamlanan taskların bağlantı işlemleri tamamlanmıştır.
-    - Ara sayfalar ve fonksiyonlar oluşturulmuştur fakat elde edilen görüntü birbiriyle uyumlu hale getirilecektir.
-  - **Sprint Retrospective:**
-    - Ekip üyelerinin iletişimini güçlendirmesi gerekmektedir.
-    - Tamamlanan taskların sayısı arttırılmalıdır.
-  - **Other Notes**: N/A
-
   </details>
 </body>
 </html>
