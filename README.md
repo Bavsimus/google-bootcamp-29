@@ -172,7 +172,7 @@
   - **Other Notes**: N/A
 
   <details>
-    <summary><h3>Ekran görüntüleri</h3></summary>
+    <summary><h3>Daily Scrum Ekran görüntüleri</h3></summary>
   <table style="width: 100%;">
     <tr>
       <td colspan="4" style="text-align: center;"><h2>Güncellenen Sayfalar</h2></td>
