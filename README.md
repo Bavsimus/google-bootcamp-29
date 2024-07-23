@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<img src="readmeassets/logo.png" alt="LibHub Team">
+<img src="readmeassets/teamlogo.png" alt="LibHub Team">
 <img src="readmeassets/aboutus.png" alt="aboutus">
 
 <h1>Product Name</h1>
@@ -150,7 +150,7 @@
       <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/ss4.png" style="max-width: 100%; height: auto;"></td>
       <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/ss5.png" style="max-width: 100%; height: auto;"></td>
   </table>
-  </details>  
+  </details> 
 
   <details>
     <summary><h3>Sprint 2 - Sprint Board</h3></summary>
@@ -162,6 +162,18 @@
   - **Sprint içinde tamamlanması tahmin edilen puan**: 100 puan.
   - **Puan tamamlama mantığı**: Toplamda proje boyunca tamamlanması gereken 320 puanlık backlog bulunmaktadır. 4 sprint'e bölündüğünde ikinci sprint'te 100 puan tamamlanmasına karar verildi.
   - **Daily Scrum**: Daily Scrum toplantıları Discord üzerinden yapılmaya devam etmekte, ayrıca WhatsApp üzerinden de iletişimdeyiz.
+  <details>
+    <summary><h3>Ekran görüntüleri</h3></summary>
+  <table style="width: 100%;">
+    <tr>
+      <td colspan="4" style="text-align: center;"><h2>Güncellenen Sayfalar</h2></td>
+    </tr>
+    <tr>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/wp1.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/wp3.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint2/wp4.png" style="max-width: 100%; height: auto;"></td>
+  </table>
+  </details> 
   - **Sprint Review**:
     - İkinci sprint için gerekli görülen tasklar büyük oranda tamamlanmıştır.
     - Tamamlanan taskların bağlantı işlemleri tamamlanmıştır.
