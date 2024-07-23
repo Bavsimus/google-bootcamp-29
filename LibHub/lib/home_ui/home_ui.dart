@@ -26,12 +26,12 @@ class _HomePageState extends State<HomePage> {
                     label: 'Homes',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.my_library_books_outlined),
-                    label: 'Personal Library',
+                    icon: Icon(Icons.add_a_photo_outlined),
+                    label: 'Add',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    label: 'Profile',
+                    icon: Icon(Icons.local_library_outlined),
+                    label: 'Personal Lib',
                   ),
                 ],
                 currentIndex: model.selectedIndex,
