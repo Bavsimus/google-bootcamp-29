@@ -37,8 +37,8 @@ class PersonalLibraryView extends StatelessWidget {
                       return Colors.transparent;
                     }),
                     tabs: const [
-                      Tab(text: 'LibHub'),
                       Tab(text: 'Profile'),
+                      Tab(text: 'LibHub'),
                     ],
                   ),
                 ],
@@ -47,6 +47,7 @@ class PersonalLibraryView extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
+              const ProfileTab(), // ProfileTab sol tarafa alındı
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -72,20 +73,17 @@ class PersonalLibraryView extends StatelessWidget {
                   ),
                 ],
               ),
-              const ProfileTab(), // ProfileTab buraya ekleniyor
             ],
           ),
-          floatingActionButton: Container(
-              // Bu kısmı yorum haline getirdik
-              // floatingActionButton: FloatingActionButton(
-              //   onPressed: () {
-              //     model.addBook(
-              //         'New Book', 'New Author', 'https://example.com/new_book.jpg');
-              //   },
-              //   tooltip: 'Add book',
-              //   child: const Icon(Icons.add),
-              // ),
-              ),
+          // Bu kısmı yorum haline getirdik
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //     model.addBook(
+          //         'New Book', 'New Author', 'https://example.com/new_book.jpg');
+          //   },
+          //   tooltip: 'Add book',
+          //   child: const Icon(Icons.add),
+          // ),
         ),
       ),
     );
