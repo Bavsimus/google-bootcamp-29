@@ -10,6 +10,10 @@ class PersonalLibraryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PersonalLibraryViewModel>.reactive(
       viewModelBuilder: () => PersonalLibraryViewModel(),
+      onModelReady: (model) async {
+        await model
+            .initialize(); // ViewModel başlatıldığında Firestore'dan veri çek
+      },
       builder: (context, model, child) => DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -21,23 +25,20 @@ class PersonalLibraryView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   TabBar(
-                    indicatorColor: const Color.fromARGB(
-                        255, 33, 116, 93), // Tab göstergesi rengi
-                    labelColor: const Color.fromARGB(
-                        255, 33, 116, 93), // Seçili tab yazı rengi
-                    unselectedLabelColor: const Color.fromARGB(
-                        255, 80, 177, 149), // Seçili olmayan tab yazı rengi
+                    indicatorColor: const Color.fromARGB(255, 33, 116, 93),
+                    labelColor: const Color.fromARGB(255, 33, 116, 93),
+                    unselectedLabelColor:
+                        const Color.fromARGB(255, 80, 177, 149),
                     overlayColor: WidgetStateColor.resolveWith((states) {
                       if (states.contains(WidgetState.pressed) ||
                           states.contains(WidgetState.hovered)) {
-                        return const Color.fromARGB(
-                            255, 33, 116, 93); // Hover ve tıklama rengi
+                        return const Color.fromARGB(255, 33, 116, 93);
                       }
-                      return Colors.transparent; // Diğer durumlarda şeffaf
+                      return Colors.transparent;
                     }),
                     tabs: const [
-                      Tab(text: 'LibHub'),
                       Tab(text: 'Profile'),
+                      Tab(text: 'LibHub'),
                     ],
                   ),
                 ],
@@ -46,6 +47,7 @@ class PersonalLibraryView extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
+              const ProfileTab(), // ProfileTab sol tarafa alındı
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -63,21 +65,25 @@ class PersonalLibraryView extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: BooksGridView(books: model.filteredBooks),
+                    child: model.isBusy
+                        ? Center(
+                            child:
+                                CircularProgressIndicator()) // Veriler yüklenirken gösterilecek
+                        : BooksGridView(books: model.filteredBooks),
                   ),
                 ],
               ),
-              const ProfileTab(), // ProfileTab buraya ekleniyor
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              model.addBook(
-                  'New Book', 'New Writer', 'https://example.com/new_book.jpg');
-            },
-            tooltip: 'Add book',
-            child: const Icon(Icons.add),
-          ),
+          // Bu kısmı yorum haline getirdik
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //     model.addBook(
+          //         'New Book', 'New Author', 'https://example.com/new_book.jpg');
+          //   },
+          //   tooltip: 'Add book',
+          //   child: const Icon(Icons.add),
+          // ),
         ),
       ),
     );
@@ -92,8 +98,7 @@ class BooksGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 16.0), // Kitap kutularına sağ ve sol padding ekleme
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: GridView.builder(
         itemCount: books.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
