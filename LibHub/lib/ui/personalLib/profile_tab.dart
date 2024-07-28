@@ -67,9 +67,8 @@ class ProfileTab extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // En çok okunan kategori widget'ı, şu an için sabit bir değer gösteriyoruz
               Text(
-                'Fiction', // Burayı gerçek en çok okunan kategoriyle güncelleyin
+                model.mostReadCategory, // En çok okunan kategori
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey[600],
