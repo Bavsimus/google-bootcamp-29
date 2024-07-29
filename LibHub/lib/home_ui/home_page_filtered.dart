@@ -1,3 +1,4 @@
+import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
 import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -9,7 +10,8 @@ class BookListScreen extends StatefulWidget {
   _BookListScreenState createState() => _BookListScreenState();
 }
 
-class _BookListScreenState extends State<BookListScreen> with SingleTickerProviderStateMixin {
+class _BookListScreenState extends State<BookListScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -30,26 +32,20 @@ class _BookListScreenState extends State<BookListScreen> with SingleTickerProvid
       viewModelBuilder: () => BookListViewModel(),
       builder: (context, viewModel, child) => Scaffold(
         appBar: AppBar(
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Search for a book',
-              border: InputBorder.none,
-            ),
-            onChanged: viewModel.filterBooks,
-          ),
+          title: null, // Arama çubuğu kaldırıldı
           bottom: TabBar(
             controller: _tabController,
             tabs: [
-              Tab(text: 'Books'),
-              Tab(text: 'Favorites'),
+              Tab(text: 'Popular'),
+              Tab(text: 'All Books'),
             ],
           ),
         ),
         body: TabBarView(
           controller: _tabController,
           children: [
+            _buildPopularList(context, viewModel),
             _buildBookList(context, viewModel),
-            _buildFavoritesList(context, viewModel),
           ],
         ),
       ),
@@ -60,135 +56,165 @@ class _BookListScreenState extends State<BookListScreen> with SingleTickerProvid
     int itemsPerRow = 5;
     int rowCount = (viewModel.filteredBooks.length / itemsPerRow).ceil();
 
-    return viewModel.filteredBooks.isEmpty
-        ? Center(child: Text('No books found'))
-        : ListView.builder(
-            itemCount: rowCount,
-            itemBuilder: (context, rowIndex) {
-              final rowBooks = viewModel.filteredBooks.skip(rowIndex * itemsPerRow).take(itemsPerRow).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: viewModel.filteredBooks.isEmpty
+              ? Center(child: Text('No books found'))
+              : ListView.builder(
+                  itemCount: rowCount,
+                  itemBuilder: (context, rowIndex) {
+                    final rowBooks = viewModel.filteredBooks
+                        .skip(rowIndex * itemsPerRow)
+                        .take(itemsPerRow)
+                        .toList();
 
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: rowBooks.map((book) {
-                    return Card(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.55,
-                        height: MediaQuery.of(context).size.height * 0.43,
-                        child: Container(
-                          margin: EdgeInsets.all(8),
-                          child: GestureDetector(
-                            onTap: () => _showBookDialog(context, book),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Image.network(
-                                  book.imageUrl,
-                                  height: 200,
-                                  fit: BoxFit.cover,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    book.name,
-                                    style: TextStyle(fontSize: 18),
-                                    textAlign: TextAlign.center,
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: rowBooks.map((book) {
+                          return Card(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.55,
+                              height: MediaQuery.of(context).size.height * 0.43,
+                              child: Container(
+                                margin: EdgeInsets.all(8),
+                                child: GestureDetector(
+                                  onTap: () => _showBookDialog(context, book),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Image.network(
+                                        book.imageUrl,
+                                        height: 200,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          book.name,
+                                          style: TextStyle(fontSize: 18),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Text(
+                                          book.author,
+                                          style: TextStyle(
+                                              fontSize: 14, color: Colors.grey),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    book.author,
-                                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    viewModel.favorites.contains(book) ? Icons.favorite : Icons.favorite_border,
-                                    color: viewModel.favorites.contains(book) ? Colors.red : Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    if (viewModel.favorites.contains(book)) {
-                                      viewModel.removeFromFavorites(book);
-                                    } else {
-                                      viewModel.addToFavorites(book);
-                                    }
-                                  },
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        }).toList(),
                       ),
                     );
-                  }).toList(),
+                  },
                 ),
-              );
-            },
-          );
+        ),
+      ],
+    );
   }
 
-  Widget _buildFavoritesList(BuildContext context, BookListViewModel viewModel) {
+  Widget _buildPopularList(BuildContext context, BookListViewModel viewModel) {
     int itemsPerRow = 5;
-    int rowCount = (viewModel.favorites.length / itemsPerRow).ceil();
+    int rowCount = (5 / itemsPerRow).ceil(); // 5 kitap için
 
-    return viewModel.favorites.isEmpty
-        ? Center(child: Text('No favorite books'))
-        : ListView.builder(
-            itemCount: rowCount,
-            itemBuilder: (context, rowIndex) {
-              final rowBooks = viewModel.favorites.skip(rowIndex * itemsPerRow).take(itemsPerRow).toList();
+    // 5 rastgele kitap seçiyoruz
+    final random = Random();
+    final popularBooks = List<Book>.from(viewModel.filteredBooks)
+      ..shuffle(random)
+      ..take(5).toList();
 
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: rowBooks.map((book) {
-                    return Card(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.55,
-                        height: MediaQuery.of(context).size.height * 0.6,
-                        child: Container(
-                          margin: EdgeInsets.all(8),
-                          child: GestureDetector(
-                            onTap: () => _showBookDialog(context, book),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Image.network(
-                                  book.imageUrl,
-                                  height: 200,
-                                  fit: BoxFit.cover,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    book.name,
-                                    style: TextStyle(fontSize: 18),
-                                    textAlign: TextAlign.center,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Popular These Days',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+        Expanded(
+          child: popularBooks.isEmpty
+              ? Center(child: Text('No popular books found'))
+              : ListView.builder(
+                  itemCount: rowCount,
+                  itemBuilder: (context, rowIndex) {
+                    final rowBooks = popularBooks
+                        .skip(rowIndex * itemsPerRow)
+                        .take(itemsPerRow)
+                        .toList();
+
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: rowBooks.map((book) {
+                          return Card(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.55,
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              child: Container(
+                                margin: EdgeInsets.all(8),
+                                child: GestureDetector(
+                                  onTap: () => _showBookDialog(context, book),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Image.network(
+                                        book.imageUrl,
+                                        height: 200,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          book.name,
+                                          style: TextStyle(fontSize: 18),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Text(
+                                          book.author,
+                                          style: TextStyle(
+                                              fontSize: 14, color: Colors.grey),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    book.author,
-                                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        }).toList(),
                       ),
                     );
-                  }).toList(),
+                  },
                 ),
-              );
-            },
-          );
+        ),
+      ],
+    );
   }
 
   void _showBookDialog(BuildContext context, Book book) {
