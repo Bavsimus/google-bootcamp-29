@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'personal_library_viewmodel.dart';
 
 class ProfileTab extends StatelessWidget {
-  const ProfileTab({super.key});
+  ProfileTab({super.key});
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +25,16 @@ class ProfileTab extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16.0),
-              const Text(
-                'John Doe', // Kullanıcının ismi
-                style: TextStyle(
+              Text(
+                user.displayName ?? 'İsimsiz Kullanıcı',
+                style: const TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8.0),
               Text(
-                'john.doe@example.com', // Kullanıcının e-posta adresi
+                user.email!, // Kullanıcının e-posta adresi
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey[600],
