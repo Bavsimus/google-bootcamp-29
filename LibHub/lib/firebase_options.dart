@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1041069115258',
     projectId: 'libhub-project-oua',
     storageBucket: 'libhub-project-oua.appspot.com',
+    iosClientId: '1041069115258-klr86sqju8655fn42mokr1snvvmn6rqg.apps.googleusercontent.com',
     iosBundleId: 'com.example.libhub',
   );
 
@@ -72,6 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1041069115258',
     projectId: 'libhub-project-oua',
     storageBucket: 'libhub-project-oua.appspot.com',
+    iosClientId: '1041069115258-klr86sqju8655fn42mokr1snvvmn6rqg.apps.googleusercontent.com',
     iosBundleId: 'com.example.libhub',
   );
 
@@ -83,4 +85,5 @@ class DefaultFirebaseOptions {
     authDomain: 'libhub-project-oua.firebaseapp.com',
     storageBucket: 'libhub-project-oua.appspot.com',
   );
+
 }
