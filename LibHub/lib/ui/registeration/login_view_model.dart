@@ -39,9 +39,20 @@ class LoginViewModel extends AppBaseViewModel {
     notifyListeners();
   }
 
-  void continueWithGoogle() {
-    firebaseService.googleSignIn();
+  void pressOnContinueWithoutRegisteration(BuildContext context) {
+    firebaseService.signInAnonymously();
     navigationService.clearStackAndShow(Routes.homePage);
+  }
+
+  void continueWithGoogle(BuildContext context) async{
+    String res = await firebaseService.googleSignIn();
+    if (res == "successful") {
+      navigationService.clearStackAndShow(Routes.homePage);
+    } else {
+      // Handle login failure (e.g., show a message to the user)
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed. Please try again.')));
+    }
   }
 
   void goToSignUpPage() {

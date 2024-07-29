@@ -84,7 +84,7 @@ class FirebaseService {
     return res;
   }
 
-  Future<void> googleSignIn() async {
+  Future<String> googleSignIn() async {
     try {
       GoogleAuthProvider googleProvider = GoogleAuthProvider();
 
@@ -106,12 +106,32 @@ class FirebaseService {
           "email": email,
         });
 
-        
+        return "successful";
+
       } catch (e) {
         log("catch 2 ->$e");
       }
     } catch (e) {
       log("googleSignIn error -> $e");
     }
+
+    return "failed";
   }
+
+  Future signInAnonymously() async {
+    try {
+      UserCredential userCredential =
+          await firebaseAuth.signInAnonymously();
+      User? user = userCredential.user;
+      log("User id: ${user?.uid}");
+    } catch (e) {
+      log("signInAnonymously error -> $e");
+    }
+  }
+
+
+  Future<void> signOut() async {
+    await firebaseAuth.signOut();
+  }
+
 }

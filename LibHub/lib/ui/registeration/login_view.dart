@@ -88,7 +88,7 @@ class LoginView extends StatelessWidget {
                         ),
                         CustomDivider(text: "or"),
                         ContinueWithGoogle(onPressed: () {
-                          viewmodel.continueWithGoogle();
+                          viewmodel.continueWithGoogle(context);
                         }),
                         const SizedBox(height: 10),
                         Row(
@@ -106,7 +106,7 @@ class LoginView extends StatelessWidget {
                         ),
                         CustomRegisterationTextButton(
                             onPressed: () {
-                              // viewmodel.pressOnContinueWithoutRegisteration(context);
+                              viewmodel.pressOnContinueWithoutRegisteration(context);
                             },
                             text: "Continue without registeration!"),
                         const SizedBox(height: 30),
