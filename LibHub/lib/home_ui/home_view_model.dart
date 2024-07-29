@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:libhub/home_ui/home_page_filtered.dart';
 import 'package:libhub/home_ui/home_screen.dart';
-import 'package:libhub/home_ui/qr_code.dart';
+import 'package:libhub/home_ui/add_book.dart';
 import 'package:libhub/ui/personalLib/profile_tab.dart';
 import 'package:libhub/ui/personalLib/personal_library_view.dart';
 import 'package:stacked/stacked.dart';
@@ -23,11 +23,11 @@ class HomeViewModel extends BaseViewModel {
       case 0:
         return BookListScreen();
       case 1:
-        return QrCodePage();
+        return AddBook();
       case 2:
-        return ProfileTab();
-      case 3:
         return PersonalLibraryView();
+      case 3:
+        return ProfileTab();
       default:
         return BookListScreen();
     }

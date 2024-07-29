@@ -16,7 +16,9 @@ class _HomePageState extends State<HomePage> {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(title: const Text('LibHub')),
+        appBar: AppBar(
+          toolbarHeight: 8, // Yüksekliği buradan ayarlayabilirsiniz
+        ),
         body: model.getPage(model.selectedIndex),
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: model.selectedIndex,
