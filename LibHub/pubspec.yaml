@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   flutter_platform_widgets: ^6.1.0
   font_awesome_flutter: ^10.7.0
+  google_fonts: ^6.2.1
 
   #DI
   get_it: ^7.7.0
