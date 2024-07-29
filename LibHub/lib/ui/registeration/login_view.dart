@@ -87,7 +87,9 @@ class LoginView extends StatelessWidget {
                           },
                         ),
                         CustomDivider(text: "or"),
-                        ContinueWithGoogle(onPressed: () {}),
+                        ContinueWithGoogle(onPressed: () {
+                          viewmodel.continueWithGoogle();
+                        }),
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

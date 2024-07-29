@@ -70,19 +70,28 @@ class FirebaseService {
     return res;
   }
 
-  Future<void> googleSignIn() async {
-    try{
-     
-        GoogleAuthProvider googleProvider = GoogleAuthProvider();
-        final googleUser = await firebaseAuth.signInWithProvider(googleProvider);
-      
-      log("googleUser -> $googleUser");
-    }
-    catch(e){
-      log("googleSignIn error -> $e");
-    }
 
+Future<void> googleSignIn() async {
+  try {
+    GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+    // Kullanıcıyı kimlik doğrulama sağlayıcısı ile oturum açtırır
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithProvider(googleProvider);
+
+    // Kullanıcıyı alır
+    User? user = userCredential.user;
+
+    // Kullanıcıdan gerekli bilgileri alır
+    String? email = user?.email;
+    String? displayName = user?.displayName;
+    
+
+
+    log("Kullanıcı adı: $displayName, E-posta: $email");
+  } catch (e) {
+    log("googleSignIn error -> $e");
   }
+}
 
 
 }

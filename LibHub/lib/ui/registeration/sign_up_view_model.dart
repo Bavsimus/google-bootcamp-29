@@ -8,7 +8,7 @@ import 'package:libhub/widgets/custom_dialog.dart';
 
 class SignUpViewModel extends AppBaseViewModel {
   final formKey = GlobalKey<FormState>();
-  final firebaseservice = FirebaseService();
+  final firebaseService = FirebaseService();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -27,7 +27,7 @@ class SignUpViewModel extends AppBaseViewModel {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-      final result = await firebaseservice.signIn(
+      final result = await firebaseService.signIn(
           context: context,
           userName: userNameController.text,
           email: emailController.text,
@@ -41,4 +41,6 @@ class SignUpViewModel extends AppBaseViewModel {
     }
     notifyListeners();
   }
+
+    
 }
