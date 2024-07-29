@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'personal_library_viewmodel.dart';
-import 'profile_tab.dart';
 
 class PersonalLibraryView extends StatelessWidget {
   const PersonalLibraryView({super.key});
@@ -14,77 +13,41 @@ class PersonalLibraryView extends StatelessWidget {
         await model
             .initialize(); // ViewModel başlatıldığında Firestore'dan veri çek
       },
-      builder: (context, model, child) => DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              flexibleSpace: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  TabBar(
-                    indicatorColor: const Color.fromARGB(255, 33, 116, 93),
-                    labelColor: const Color.fromARGB(255, 33, 116, 93),
-                    unselectedLabelColor:
-                        const Color.fromARGB(255, 80, 177, 149),
-                    overlayColor: WidgetStateColor.resolveWith((states) {
-                      if (states.contains(WidgetState.pressed) ||
-                          states.contains(WidgetState.hovered)) {
-                        return const Color.fromARGB(255, 33, 116, 93);
-                      }
-                      return Colors.transparent;
-                    }),
-                    tabs: const [
-                      Tab(text: 'Profile'),
-                      Tab(text: 'LibHub'),
-                    ],
+      builder: (context, model, child) => Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                onChanged: model.updateSearchQuery,
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                ],
+                  prefixIcon: const Icon(Icons.search),
+                ),
               ),
             ),
-          ),
-          body: TabBarView(
-            children: [
-              const ProfileTab(), // ProfileTab sol tarafa alındı
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      onChanged: model.updateSearchQuery,
-                      decoration: InputDecoration(
-                        hintText: 'Search...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        prefixIcon: const Icon(Icons.search),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: model.isBusy
-                        ? Center(
-                            child:
-                                CircularProgressIndicator()) // Veriler yüklenirken gösterilecek
-                        : BooksGridView(books: model.filteredBooks),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          // Bu kısmı yorum haline getirdik
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: () {
-          //     model.addBook(
-          //         'New Book', 'New Author', 'https://example.com/new_book.jpg');
-          //   },
-          //   tooltip: 'Add book',
-          //   child: const Icon(Icons.add),
-          // ),
+            Expanded(
+              child: model.isBusy
+                  ? Center(
+                      child:
+                          CircularProgressIndicator()) // Veriler yüklenirken gösterilecek
+                  : BooksGridView(books: model.filteredBooks),
+            ),
+          ],
         ),
+        // Bu kısmı yorum haline getirdik
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     model.addBook(
+        //         'New Book', 'New Author', 'https://example.com/new_book.jpg');
+        //   },
+        //   tooltip: 'Add book',
+        //   child: const Icon(Icons.add),
+        // ),
       ),
     );
   }

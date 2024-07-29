@@ -31,21 +31,27 @@ class _BookListScreenState extends State<BookListScreen>
     return ViewModelBuilder<BookListViewModel>.reactive(
       viewModelBuilder: () => BookListViewModel(),
       builder: (context, viewModel, child) => Scaffold(
-        appBar: AppBar(
-          title: null, // Arama çubuğu kaldırıldı
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: [
-              Tab(text: 'Popular'),
-              Tab(text: 'All Books'),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          controller: _tabController,
+        body: Column(
           children: [
-            _buildPopularList(context, viewModel),
-            _buildBookList(context, viewModel),
+            TabBar(
+              controller: _tabController,
+              indicatorColor: const Color.fromARGB(255, 33, 116, 93),
+              labelColor: const Color.fromARGB(255, 33, 116, 93),
+              unselectedLabelColor: const Color.fromARGB(255, 80, 177, 149),
+              tabs: const [
+                Tab(text: 'Popular'),
+                Tab(text: 'All Books'),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _buildPopularList(context, viewModel),
+                  _buildBookList(context, viewModel),
+                ],
+              ),
+            ),
           ],
         ),
       ),
