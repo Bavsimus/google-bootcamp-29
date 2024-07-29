@@ -45,8 +45,8 @@ class LoginViewModel extends AppBaseViewModel {
   }
 
   void continueWithGoogle(BuildContext context) async{
-    String res = await firebaseService.googleSignIn();
-    if (res == "successful") {
+    bool res = await firebaseService.googleSignIn();
+    if (res) {
       navigationService.clearStackAndShow(Routes.homePage);
     } else {
       // Handle login failure (e.g., show a message to the user)

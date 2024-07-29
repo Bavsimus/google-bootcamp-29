@@ -32,6 +32,11 @@ dependencies:
   firebase_storage: ^11.7.4 
 
 
+  #GOOGLE_SIGN_IN
+  google_sign_in: ^6.2.1
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class FirebaseService {
   final firebaseAuth = FirebaseAuth.instance;
@@ -84,39 +86,61 @@ class FirebaseService {
     return res;
   }
 
-  Future<String> googleSignIn() async {
-    try {
-      GoogleAuthProvider googleProvider = GoogleAuthProvider();
+Future<bool> googleSignIn() async {
+  bool status = false;
 
-      // Kullanıcıyı kimlik doğrulama sağlayıcısı ile oturum açtırır
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithProvider(googleProvider);
-
-      // Kullanıcıyı alır
-      User? user = userCredential.user;
-
-      // Kullanıcıdan gerekli bilgileri alır
-      String? email = user?.email;
-      String? displayName = user?.displayName;
-
-      log("Kullanıcı adı: $displayName, E-posta: $email");
-
-      try {
-        final resultData = await firebaseFirestore.collection("users").add({
-          "email": email,
-        });
-
-        return "successful";
-
-      } catch (e) {
-        log("catch 2 ->$e");
-      }
-    } catch (e) {
-      log("googleSignIn error -> $e");
+  try {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      return status;
     }
 
-    return "failed";
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    // Kullanıcıyı kimlik doğrulama sağlayıcısı ile oturum açtırır
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // Kullanıcıyı alır
+    User? user = userCredential.user;
+
+
+    String? email = user?.email;
+    String? displayName = user?.displayName;
+
+    log("Kullanıcı adı: $displayName, E-posta: $email");
+
+    if (email != null) {
+      // Firestore'da belirtilen e-posta ile kullanıcı arayın
+      final querySnapshot = await firebaseFirestore
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .get();
+
+      if (querySnapshot.docs.isEmpty) {
+        // Kullanıcı bulunamazsa, yeni kullanıcıyı ekleyin
+        await firebaseFirestore.collection("users").add({
+          "email": email,
+        });
+        status = true;
+      } else {
+        log("Kullanıcı zaten mevcut");
+        status = true;
+      }
+      return  status;
+    }
+  } catch (e) {
+    log("googleSignIn error -> $e");
+    status = false;
+    return  status;
   }
+
+  return  status;
+}
 
   Future signInAnonymously() async {
     try {
