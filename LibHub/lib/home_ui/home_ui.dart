@@ -16,7 +16,9 @@ class _HomePageState extends State<HomePage> {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(title: const Text('LibHub')),
+        appBar: AppBar(
+          toolbarHeight: 8, // Yüksekliği buradan ayarlayabilirsiniz
+        ),
         body: model.getPage(model.selectedIndex),
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: model.selectedIndex,
@@ -34,12 +36,12 @@ class _HomePageState extends State<HomePage> {
 
 final _navBarItems = [
   SalomonBottomBarItem(
-    icon: const Icon(Icons.home),
+    icon: const Icon(Icons.house_outlined),
     title: const Text("Home"),
     selectedColor: Colors.purple,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.add_a_photo_outlined),
+    icon: const Icon(Icons.add_circle_outline),
     title: const Text("Add"),
     selectedColor: Colors.pink,
   ),
@@ -49,7 +51,7 @@ final _navBarItems = [
     selectedColor: Colors.orange,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.person),
+    icon: const Icon(Icons.person_2_outlined),
     title: const Text("Profile"),
     selectedColor: Colors.teal,
   ),
