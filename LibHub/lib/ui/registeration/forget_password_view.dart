@@ -16,7 +16,11 @@ class ForgotPasswordView extends StatelessWidget {
         disposeViewModel: false,
         builder: (context, viewmodel, child) => Scaffold(
               appBar: AppBar(
-                title: const Text('Forgot Password'),
+                title: const Center(
+                    child:  Text(
+                  'Forgot Password',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
                 backgroundColor: const Color.fromARGB(255, 71, 188, 167),
               ),
               body: Column(

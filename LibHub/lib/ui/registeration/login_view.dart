@@ -20,9 +20,11 @@ class LoginView extends StatelessWidget {
         disposeViewModel: false,
         builder: (context, viewmodel, child) => Scaffold(
               appBar: AppBar(
-                title: const Text('LibHub',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                title: const Center(
+                  child:  Text('LibHub',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                ),
                 backgroundColor: const Color.fromARGB(255, 71, 188, 167),
               ),
               body: SingleChildScrollView(
@@ -106,7 +108,8 @@ class LoginView extends StatelessWidget {
                         ),
                         CustomRegisterationTextButton(
                             onPressed: () {
-                              viewmodel.pressOnContinueWithoutRegisteration(context);
+                              viewmodel
+                                  .pressOnContinueWithoutRegisteration(context);
                             },
                             text: "Continue without registeration!"),
                         const SizedBox(height: 30),

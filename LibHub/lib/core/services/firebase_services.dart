@@ -101,28 +101,22 @@ Future<bool> googleSignIn() async {
       idToken: googleAuth.idToken,
     );
 
-    // Kullanıcıyı kimlik doğrulama sağlayıcısı ile oturum açtırır
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    // Kullanıcıyı alır
     User? user = userCredential.user;
-
-
     String? email = user?.email;
     String? displayName = user?.displayName;
 
     log("Kullanıcı adı: $displayName, E-posta: $email");
 
     if (email != null) {
-      // Firestore'da belirtilen e-posta ile kullanıcı arayın
       final querySnapshot = await firebaseFirestore
           .collection("users")
           .where("email", isEqualTo: email)
           .get();
 
       if (querySnapshot.docs.isEmpty) {
-        // Kullanıcı bulunamazsa, yeni kullanıcıyı ekleyin
         await firebaseFirestore.collection("users").add({
           "email": email,
         });

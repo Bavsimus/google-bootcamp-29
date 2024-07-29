@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:libhub/app/app.router.dart';
 import 'package:libhub/app/app_base_view_model.dart';
 import 'package:libhub/core/di/get_it.dart';
@@ -19,6 +20,11 @@ class LibHub extends StatelessWidget {
         viewModelBuilder: () => getIt<AppBaseViewModel>(), // singleton: 1 instance of AppBaseViewModel
         onViewModelReady: (viewModel) => viewModel.init(),
         builder: (context, viewModel, child) => MaterialApp(
+          theme: ThemeData(
+        textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorObservers: [StackedService.routeObserver],
