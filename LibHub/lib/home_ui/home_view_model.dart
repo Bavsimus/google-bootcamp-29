@@ -23,9 +23,11 @@ class HomeViewModel extends BaseViewModel {
       case 0:
         return BookListScreen();
       case 1:
-        return PersonalLibraryView();
+        return QrCodePage();
       case 2:
         return ProfileTab();
+      case 3:
+        return PersonalLibraryView();
       default:
         return BookListScreen();
     }

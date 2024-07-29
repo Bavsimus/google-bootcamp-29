@@ -34,9 +34,14 @@ class _HomePageState extends State<HomePage> {
 
 final _navBarItems = [
   SalomonBottomBarItem(
-    icon: const Icon(Icons.home),
+    icon: const Icon(Icons.house_outlined),
     title: const Text("Home"),
     selectedColor: Colors.purple,
+  ),
+  SalomonBottomBarItem(
+    icon: const Icon(Icons.add_circle_outline),
+    title: const Text("Add"),
+    selectedColor: Colors.pink,
   ),
   SalomonBottomBarItem(
     icon: const Icon(Icons.local_library_outlined),
@@ -44,7 +49,7 @@ final _navBarItems = [
     selectedColor: Colors.orange,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.person),
+    icon: const Icon(Icons.person_2_outlined),
     title: const Text("Profile"),
     selectedColor: Colors.teal,
   ),
