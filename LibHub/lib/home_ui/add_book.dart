@@ -1,15 +1,16 @@
 import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:libhub/home_ui/book.dart';
 
-class PersonalLibraryView extends StatefulWidget {
+class AddBook extends StatefulWidget {
   @override
   _PersonalLibraryViewState createState() => _PersonalLibraryViewState();
 }
 
-class _PersonalLibraryViewState extends State<PersonalLibraryView> {
+class _PersonalLibraryViewState extends State<AddBook> {
   final TextEditingController _searchController = TextEditingController();
   String _searchTerm = "";
 
@@ -43,15 +44,15 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
               child: TextFormField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                  hintText: 'Search in your library..',
-                  hintStyle: TextStyle(color: Colors.orange[600]),
+                  hintText: 'Add by search..',
+                  hintStyle: TextStyle(color: Colors.pink[600]),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.surface,
-                  prefixIcon: Icon(Icons.search, color: Colors.orange),
+                  prefixIcon: Icon(Icons.search, color: Colors.pink),
                 ),
                 onChanged: (text) {
                   setState(() {
@@ -99,7 +100,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                 margin: EdgeInsets.all(8),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.55,
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.43,
                   child: Container(
                     margin: EdgeInsets.all(8),
                     child: GestureDetector(
@@ -122,7 +123,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.orange[900],
+                              color: Colors.pink[900],
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -133,7 +134,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                               book.author,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.orange,
+                                color: Colors.pink,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -180,7 +181,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.orange,
+                        color: Colors.pink,
                       ),
                     ),
                     SizedBox(height: 8),
@@ -212,21 +213,20 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: isPressed
-                              ? Colors.orange
+                              ? Colors.pink
                               : Colors
                                   .transparent, // Tıklama durumuna göre renk
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: Colors.orange, // İkonun rengi
+                            color: Colors.pink, // İkonun rengi
                             width: 2, // Sınır kalınlığı
                           ),
                         ),
                         child: Icon(
-                          Icons.remove_circle_outline,
+                          Icons.add_circle_outline,
                           color: isPressed
                               ? Colors.white
-                              : Colors
-                                  .orange, // Tıklama durumuna göre ikon rengi
+                              : Colors.pink, // Tıklama durumuna göre ikon rengi
                           size: 32, // İkonun boyutu
                         ),
                       ),

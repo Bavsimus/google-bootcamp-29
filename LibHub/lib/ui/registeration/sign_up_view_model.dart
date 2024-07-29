@@ -31,7 +31,8 @@ class SignUpViewModel extends AppBaseViewModel {
           context: context,
           userName: userNameController.text,
           email: emailController.text,
-          password: passwordController.text);
+          password: passwordController.text,
+          city: cityController.text);
       log("sign in viewmodel() ->" + result.toString());
       // if (result) {
       navigationService.clearStackAndShow(Routes.homePage);
