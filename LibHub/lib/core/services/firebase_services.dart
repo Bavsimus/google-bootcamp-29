@@ -69,4 +69,20 @@ class FirebaseService {
     }
     return res;
   }
+
+  Future<void> googleSignIn() async {
+    try{
+     
+        GoogleAuthProvider googleProvider = GoogleAuthProvider();
+        final googleUser = await firebaseAuth.signInWithProvider(googleProvider);
+      
+      log("googleUser -> $googleUser");
+    }
+    catch(e){
+      log("googleSignIn error -> $e");
+    }
+
+  }
+
+
 }

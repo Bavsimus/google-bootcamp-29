@@ -12,7 +12,12 @@
           "package_name": "com.example.libhub"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1041069115258-oin36rl9nr5d4bo770abpnh9t9ia80kg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDBpXn0_KXKnXCwceDwXk-4sWcFKwySNhU"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041069115258-oin36rl9nr5d4bo770abpnh9t9ia80kg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1041069115258-klr86sqju8655fn42mokr1snvvmn6rqg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.libhub"
+              }
+            }
+          ]
         }
       }
     }
