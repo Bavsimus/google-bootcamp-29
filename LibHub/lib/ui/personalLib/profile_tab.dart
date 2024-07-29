@@ -13,6 +13,7 @@ class ProfileTab extends StatelessWidget {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const CircleAvatar(

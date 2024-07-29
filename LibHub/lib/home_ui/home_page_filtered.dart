@@ -1,6 +1,7 @@
 import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
 import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import 'book.dart';
@@ -10,21 +11,8 @@ class BookListScreen extends StatefulWidget {
   _BookListScreenState createState() => _BookListScreenState();
 }
 
-class _BookListScreenState extends State<BookListScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+class _BookListScreenState extends State<BookListScreen> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +21,30 @@ class _BookListScreenState extends State<BookListScreen>
       builder: (context, viewModel, child) => Scaffold(
         body: Column(
           children: [
-            TabBar(
-              controller: _tabController,
-              indicatorColor: const Color.fromARGB(255, 33, 116, 93),
-              labelColor: const Color.fromARGB(255, 33, 116, 93),
-              unselectedLabelColor: const Color.fromARGB(255, 80, 177, 149),
-              tabs: const [
-                Tab(text: 'Popular'),
-                Tab(text: 'All Books'),
+            // SalomonBottomBar'ı üst kısma taşıyoruz
+            SalomonBottomBar(
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              items: [
+                SalomonBottomBarItem(
+                  icon: Icon(Icons.public),
+                  title: Text('Popular'),
+                  selectedColor: const Color.fromARGB(255, 33, 116, 93),
+                ),
+                SalomonBottomBarItem(
+                  icon: Icon(Icons.shelves),
+                  title: Text('All Books'),
+                  selectedColor: const Color.fromARGB(255, 33, 116, 93),
+                ),
               ],
             ),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
+              child: IndexedStack(
+                index: _currentIndex,
                 children: [
                   _buildPopularList(context, viewModel),
                   _buildBookList(context, viewModel),

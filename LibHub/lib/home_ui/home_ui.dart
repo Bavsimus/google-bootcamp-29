@@ -39,11 +39,6 @@ final _navBarItems = [
     selectedColor: Colors.purple,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.add_a_photo_outlined),
-    title: const Text("Add"),
-    selectedColor: Colors.pink,
-  ),
-  SalomonBottomBarItem(
     icon: const Icon(Icons.local_library_outlined),
     title: const Text("Personal Lib"),
     selectedColor: Colors.orange,
