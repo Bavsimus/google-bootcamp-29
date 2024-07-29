@@ -7,10 +7,9 @@ class FirebaseService {
   final firebaseAuth = FirebaseAuth.instance;
   final firebaseFirestore = FirebaseFirestore.instance;
 
-    User getCurrentUser() {
+  User getCurrentUser() {
     return firebaseAuth.currentUser!;
   }
-
 
   Future<String?> login(BuildContext context, email, String password) async {
     String? res;
@@ -85,28 +84,34 @@ class FirebaseService {
     return res;
   }
 
+  Future<void> googleSignIn() async {
+    try {
+      GoogleAuthProvider googleProvider = GoogleAuthProvider();
 
-Future<void> googleSignIn() async {
-  try {
-    GoogleAuthProvider googleProvider = GoogleAuthProvider();
+      // Kullanıcıyı kimlik doğrulama sağlayıcısı ile oturum açtırır
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithProvider(googleProvider);
 
-    // Kullanıcıyı kimlik doğrulama sağlayıcısı ile oturum açtırır
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithProvider(googleProvider);
+      // Kullanıcıyı alır
+      User? user = userCredential.user;
 
-    // Kullanıcıyı alır
-    User? user = userCredential.user;
+      // Kullanıcıdan gerekli bilgileri alır
+      String? email = user?.email;
+      String? displayName = user?.displayName;
 
-    // Kullanıcıdan gerekli bilgileri alır
-    String? email = user?.email;
-    String? displayName = user?.displayName;
-    
+      log("Kullanıcı adı: $displayName, E-posta: $email");
 
+      try {
+        final resultData = await firebaseFirestore.collection("users").add({
+          "email": email,
+        });
 
-    log("Kullanıcı adı: $displayName, E-posta: $email");
-  } catch (e) {
-    log("googleSignIn error -> $e");
+        
+      } catch (e) {
+        log("catch 2 ->$e");
+      }
+    } catch (e) {
+      log("googleSignIn error -> $e");
+    }
   }
-}
-
-
 }

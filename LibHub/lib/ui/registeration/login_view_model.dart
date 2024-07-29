@@ -41,6 +41,7 @@ class LoginViewModel extends AppBaseViewModel {
 
   void continueWithGoogle() {
     firebaseService.googleSignIn();
+    navigationService.clearStackAndShow(Routes.homePage);
   }
 
   void goToSignUpPage() {
