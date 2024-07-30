@@ -1,6 +1,7 @@
 import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:libhub/core/services/firebase_services.dart';
 import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:libhub/home_ui/book.dart';
@@ -13,11 +14,15 @@ class AddBook extends StatefulWidget {
 class _PersonalLibraryViewState extends State<AddBook> {
   final TextEditingController _searchController = TextEditingController();
   String _searchTerm = "";
+  final firebaseService = FirebaseService();
+  String currentUserMail = "";
+
 
   @override
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
+    currentUserMail = firebaseService.getCurrentUser().email!;
   }
 
   @override
@@ -203,6 +208,7 @@ class _PersonalLibraryViewState extends State<AddBook> {
                       onTap: () {
                         setState(() {
                           isPressed = !isPressed; // Tıklama durumunu değiştirir
+                          firebaseService.saveBookToPersonalLib( bookName: book.name ,userEmail: currentUserMail);
                         });
                         // Butona tıklandığında animasyon
                         Future.delayed(Duration(milliseconds: 300), () {
