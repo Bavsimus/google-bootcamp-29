@@ -17,7 +17,6 @@ class _PersonalLibraryViewState extends State<AddBook> {
   final firebaseService = FirebaseService();
   String currentUserMail = "";
 
-
   @override
   void initState() {
     super.initState();
@@ -208,7 +207,12 @@ class _PersonalLibraryViewState extends State<AddBook> {
                       onTap: () {
                         setState(() {
                           isPressed = !isPressed; // Tıklama durumunu değiştirir
-                          firebaseService.saveBookToPersonalLib( bookName: book.name ,userEmail: currentUserMail);
+                          firebaseService.saveBookToPersonalLib(
+                            bookName: book.name,
+                            bookAuthor: book.author,
+                            bookImage: book.imageUrl,
+                            userEmail: currentUserMail,
+                          );
                         });
                         // Butona tıklandığında animasyon
                         Future.delayed(Duration(milliseconds: 300), () {
