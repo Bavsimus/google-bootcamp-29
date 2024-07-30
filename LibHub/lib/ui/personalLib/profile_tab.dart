@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'personal_library_viewmodel.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   ProfileTab({super.key});
+
+  @override
+  _ProfileTabState createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
+  bool _isEditing = false; // Kutuların tıklanabilirliğini kontrol eden değişken
+
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
@@ -41,46 +49,95 @@ class ProfileTab extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16.0),
-              const Text(
-                'Top 5 Favorite Books',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              ...model.favoriteBooks.map((book) => Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ListTile(
-                      leading: Image.network(
-                        book.coverUrl,
-                        width: 50,
-                        height: 75,
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(book.title),
-                      subtitle: Text(book.author),
+              // Başlık ve kutucuklar
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Favorite Top 5 Books',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple,
                     ),
-                  )),
-              const SizedBox(height: 16.0),
-              const Text(
-                'Most Read Category',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      _isEditing ? Icons.check : Icons.edit,
+                      color: Colors.purple,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isEditing = !_isEditing; // Tıklama durumunu değiştirir
+                      });
+                    },
+                  ),
+                ],
               ),
-              Text(
-                model.mostReadCategory, // En çok okunan kategori
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.grey[600],
+              Container(
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap:
+                          _isEditing ? () => _showEmptyDialog(context) : null,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.18,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200], // Kutucuğun arka plan rengi
+                          borderRadius: BorderRadius.circular(
+                              12), // Kenarları yuvarlatıyoruz
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: Offset(0, 3), // X ve Y offset
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showEmptyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 16,
+          child: Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                // İçeriksiz bir dialog
+                SizedBox(height: 8),
+                Text(
+                  "Buraya açıklama ya da başka bir şey eklenebilir.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
