@@ -119,6 +119,7 @@ Future<bool> googleSignIn() async {
       if (querySnapshot.docs.isEmpty) {
         await firebaseFirestore.collection("users").add({
           "email": email,
+          "userName": displayName,
         });
         status = true;
       } else {
@@ -151,5 +152,58 @@ Future<bool> googleSignIn() async {
   Future<void> signOut() async {
     await firebaseAuth.signOut();
   }
+
+
+
+  void saveBookToPersonalLib(
+      {required String bookName, required String userEmail}) async {
+    try {
+
+      final userQuerySnapshot = await firebaseFirestore
+          .collection("users")
+          .where("email", isEqualTo: userEmail)
+          .get();
+
+      if (userQuerySnapshot.docs.isNotEmpty) {
+        // Assuming there is only one document for the given email
+        DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
+
+        // Access the 'advices' sub-collection and add a new document
+        userDoc.reference.collection("favoriteBooks").add({
+          "bookName": bookName,
+          "date": DateTime.now(),
+        });
+
+        log("New book added successfully.");
+      } else {
+        log("User with the specified email not found.");
+      }
+    } catch (e) {
+      log("Error adding book to lib: $e");
+    }
+  }
+
+
+  // Future<String> getUserName() async {
+  //   String email = getCurrentUser().email!;
+
+  //   try {
+  //     final userQuerySnapshot = await firebaseFirestore
+  //         .collection("users")
+  //         .where("email", isEqualTo: email)
+  //         .get();
+
+  //     if (userQuerySnapshot.docs.isNotEmpty) {
+  //       DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
+  //       return userDoc.get("userName");
+  //     } else {
+  //       return "İsimsiz Kullanıcı";
+  //     }
+  //   } catch (e) {
+  //     log("Error getting user name: $e");
+  //     return "İsimsiz Kullanıcı";
+  //   }
+  // }
+
 
 }
