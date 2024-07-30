@@ -59,6 +59,18 @@ class FirebaseService {
     try {
       final result = await firebaseAuth.createUserWithEmailAndPassword(
           email: email.trim(), password: password.trim());
+      
+        User? user = result.user;
+
+         if (user != null) {
+      await user.updateDisplayName(userName);
+      await user.reload(); // Bilgileri güncellemek için.
+      user = FirebaseAuth.instance.currentUser;
+      print("User's Display Name: ${user?.displayName}");
+    } else {
+      print("User creation failed.");
+    }
+
 
       try {
         final resultData = await firebaseFirestore.collection("users").add({
@@ -184,26 +196,26 @@ Future<bool> googleSignIn() async {
   }
 
 
-  // Future<String> getUserName() async {
-  //   String email = getCurrentUser().email!;
+  Future<String> getUserName() async {
+    String email = getCurrentUser().email!;
 
-  //   try {
-  //     final userQuerySnapshot = await firebaseFirestore
-  //         .collection("users")
-  //         .where("email", isEqualTo: email)
-  //         .get();
+    try {
+      final userQuerySnapshot = await firebaseFirestore
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .get();
 
-  //     if (userQuerySnapshot.docs.isNotEmpty) {
-  //       DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
-  //       return userDoc.get("userName");
-  //     } else {
-  //       return "İsimsiz Kullanıcı";
-  //     }
-  //   } catch (e) {
-  //     log("Error getting user name: $e");
-  //     return "İsimsiz Kullanıcı";
-  //   }
-  // }
+      if (userQuerySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
+        return userDoc.get("userName");
+      } else {
+        return "İsimsiz Kullanıcı";
+      }
+    } catch (e) {
+      log("Error getting user name: $e");
+      return "İsimsiz Kullanıcı";
+    }
+  }
 
 
 }
