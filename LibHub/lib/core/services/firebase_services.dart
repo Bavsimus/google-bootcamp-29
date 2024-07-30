@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 class FirebaseService {
   final firebaseAuth = FirebaseAuth.instance;
   final firebaseFirestore = FirebaseFirestore.instance;
@@ -13,7 +12,8 @@ class FirebaseService {
     return firebaseAuth.currentUser!;
   }
 
-  Future<String?> login(BuildContext context, email, String password) async {
+  Future<String?> login(
+      BuildContext context, String email, String password) async {
     String? res;
     try {
       final result = await firebaseAuth.signInWithEmailAndPassword(
@@ -27,7 +27,8 @@ class FirebaseService {
       }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-        case "user-not-found" || "wrong-password":
+        case "user-not-found":
+        case "wrong-password":
           res = "User is not found or invalid password";
           break;
         case "user-disabled":
@@ -86,61 +87,60 @@ class FirebaseService {
     return res;
   }
 
-Future<bool> googleSignIn() async {
-  bool status = false;
+  Future<bool> googleSignIn() async {
+    bool status = false;
 
-  try {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
+    try {
+      GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return status;
+      }
+
+      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      User? user = userCredential.user;
+      String? email = user?.email;
+      String? displayName = user?.displayName;
+
+      log("Kullanıcı adı: $displayName, E-posta: $email");
+
+      if (email != null) {
+        final querySnapshot = await firebaseFirestore
+            .collection("users")
+            .where("email", isEqualTo: email)
+            .get();
+
+        if (querySnapshot.docs.isEmpty) {
+          await firebaseFirestore.collection("users").add({
+            "email": email,
+            "userName": displayName,
+          });
+          status = true;
+        } else {
+          log("Kullanıcı zaten mevcut");
+          status = true;
+        }
+        return status;
+      }
+    } catch (e) {
+      log("googleSignIn error -> $e");
+      status = false;
       return status;
     }
 
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
-    User? user = userCredential.user;
-    String? email = user?.email;
-    String? displayName = user?.displayName;
-
-    log("Kullanıcı adı: $displayName, E-posta: $email");
-
-    if (email != null) {
-      final querySnapshot = await firebaseFirestore
-          .collection("users")
-          .where("email", isEqualTo: email)
-          .get();
-
-      if (querySnapshot.docs.isEmpty) {
-        await firebaseFirestore.collection("users").add({
-          "email": email,
-          "userName": displayName,
-        });
-        status = true;
-      } else {
-        log("Kullanıcı zaten mevcut");
-        status = true;
-      }
-      return  status;
-    }
-  } catch (e) {
-    log("googleSignIn error -> $e");
-    status = false;
-    return  status;
+    return status;
   }
-
-  return  status;
-}
 
   Future signInAnonymously() async {
     try {
-      UserCredential userCredential =
-          await firebaseAuth.signInAnonymously();
+      UserCredential userCredential = await firebaseAuth.signInAnonymously();
       User? user = userCredential.user;
       log("User id: ${user?.uid}");
     } catch (e) {
@@ -148,29 +148,31 @@ Future<bool> googleSignIn() async {
     }
   }
 
-
   Future<void> signOut() async {
     await firebaseAuth.signOut();
   }
 
-
-
-  void saveBookToPersonalLib(
-      {required String bookName, required String userEmail}) async {
+  // Kitap bilgilerini Firestore'a kaydeder
+  Future<void> saveBookToPersonalLib({
+    required String bookName,
+    required String bookAuthor,
+    required String bookImage,
+    required String userEmail,
+  }) async {
     try {
-
       final userQuerySnapshot = await firebaseFirestore
           .collection("users")
           .where("email", isEqualTo: userEmail)
           .get();
 
       if (userQuerySnapshot.docs.isNotEmpty) {
-        // Assuming there is only one document for the given email
+        // Kullanıcı bulunmuşsa, 'favoriteBooks' koleksiyonuna kitap ekle
         DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
 
-        // Access the 'advices' sub-collection and add a new document
-        userDoc.reference.collection("favoriteBooks").add({
+        await userDoc.reference.collection("favoriteBooks").add({
           "bookName": bookName,
+          "bookAuthor": bookAuthor,
+          "bookImage": bookImage,
           "date": DateTime.now(),
         });
 
@@ -182,28 +184,4 @@ Future<bool> googleSignIn() async {
       log("Error adding book to lib: $e");
     }
   }
-
-
-  // Future<String> getUserName() async {
-  //   String email = getCurrentUser().email!;
-
-  //   try {
-  //     final userQuerySnapshot = await firebaseFirestore
-  //         .collection("users")
-  //         .where("email", isEqualTo: email)
-  //         .get();
-
-  //     if (userQuerySnapshot.docs.isNotEmpty) {
-  //       DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
-  //       return userDoc.get("userName");
-  //     } else {
-  //       return "İsimsiz Kullanıcı";
-  //     }
-  //   } catch (e) {
-  //     log("Error getting user name: $e");
-  //     return "İsimsiz Kullanıcı";
-  //   }
-  // }
-
-
 }
