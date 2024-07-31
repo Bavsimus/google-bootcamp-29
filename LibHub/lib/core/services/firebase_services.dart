@@ -127,7 +127,6 @@ class FirebaseService {
             .get();
 
         if (querySnapshot.docs.isEmpty) {
-
           String uid = userCredential.user!.uid;
 
           await FirebaseFirestore.instance.collection('users').doc(uid).set({
@@ -135,11 +134,10 @@ class FirebaseService {
             'email': email,
           });
 
-
-         // await firebaseFirestore.collection("users").add({
-         //   "email": email,
-         //   "userName": displayName,
-         // });
+          // await firebaseFirestore.collection("users").add({
+          //   "email": email,
+          //   "userName": displayName,
+          // });
 
           status = true;
         } else {
@@ -171,64 +169,60 @@ class FirebaseService {
     await firebaseAuth.signOut();
   }
 
-
   void saveBookToPersonalLib(
       {required String bookName, required String userEmail}) async {
+    // Kitap bilgilerini Firestore'a kaydeder
+    Future<void> saveBookToPersonalLib({
+      required String bookName,
+      required String bookAuthor,
+      required String bookImage,
+      required String userEmail,
+    }) async {
+      try {
+        final userQuerySnapshot = await firebaseFirestore
+            .collection("users")
+            .where("email", isEqualTo: userEmail)
+            .get();
 
-  // Kitap bilgilerini Firestore'a kaydeder
-  Future<void> saveBookToPersonalLib({
-    required String bookName,
-    required String bookAuthor,
-    required String bookImage,
-    required String userEmail,
-  }) async {
+        if (userQuerySnapshot.docs.isNotEmpty) {
+          // Kullanıcı bulunmuşsa, 'favoriteBooks' koleksiyonuna kitap ekle
+          DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
 
-    try {
-      final userQuerySnapshot = await firebaseFirestore
-          .collection("users")
-          .where("email", isEqualTo: userEmail)
-          .get();
+          await userDoc.reference.collection("favoriteBooks").add({
+            "bookName": bookName,
+            "bookAuthor": bookAuthor,
+            "bookImage": bookImage,
+            "date": DateTime.now(),
+          });
 
-      if (userQuerySnapshot.docs.isNotEmpty) {
-        // Kullanıcı bulunmuşsa, 'favoriteBooks' koleksiyonuna kitap ekle
-        DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
-
-        await userDoc.reference.collection("favoriteBooks").add({
-          "bookName": bookName,
-          "bookAuthor": bookAuthor,
-          "bookImage": bookImage,
-          "date": DateTime.now(),
-        });
-
-        log("New book added successfully.");
-      } else {
-        log("User with the specified email not found.");
+          log("New book added successfully.");
+        } else {
+          log("User with the specified email not found.");
+        }
+      } catch (e) {
+        log("Error adding book to lib: $e");
       }
-    } catch (e) {
-      log("Error adding book to lib: $e");
     }
-  }
 
+    Future<String> getUserName() async {
+      String email = getCurrentUser().email!;
 
-  Future<String> getUserName() async {
-    String email = getCurrentUser().email!;
+      try {
+        final userQuerySnapshot = await firebaseFirestore
+            .collection("users")
+            .where("email", isEqualTo: email)
+            .get();
 
-    try {
-      final userQuerySnapshot = await firebaseFirestore
-          .collection("users")
-          .where("email", isEqualTo: email)
-          .get();
-
-      if (userQuerySnapshot.docs.isNotEmpty) {
-        DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
-        return userDoc.get("userName");
-      } else {
+        if (userQuerySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
+          return userDoc.get("userName");
+        } else {
+          return "İsimsiz Kullanıcı";
+        }
+      } catch (e) {
+        log("Error getting user name: $e");
         return "İsimsiz Kullanıcı";
       }
-    } catch (e) {
-      log("Error getting user name: $e");
-      return "İsimsiz Kullanıcı";
     }
   }
-
 }
