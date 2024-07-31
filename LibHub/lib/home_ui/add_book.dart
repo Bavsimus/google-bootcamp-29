@@ -1,27 +1,23 @@
-import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:libhub/core/services/firebase_services.dart';
-import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
 import 'package:stacked/stacked.dart';
+import 'package:libhub/core/services/firebase_services.dart';
 import 'package:libhub/home_ui/book.dart';
+import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
 
 class AddBook extends StatefulWidget {
   @override
-  _PersonalLibraryViewState createState() => _PersonalLibraryViewState();
+  _AddBookState createState() => _AddBookState();
 }
 
-class _PersonalLibraryViewState extends State<AddBook> {
+class _AddBookState extends State<AddBook> {
   final TextEditingController _searchController = TextEditingController();
   String _searchTerm = "";
   final firebaseService = FirebaseService();
-  String currentUserMail = "";
 
   @override
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
-    currentUserMail = firebaseService.getCurrentUser().email!;
   }
 
   @override
@@ -211,7 +207,6 @@ class _PersonalLibraryViewState extends State<AddBook> {
                             bookName: book.name,
                             bookAuthor: book.author,
                             bookImage: book.imageUrl,
-                            userEmail: currentUserMail,
                           );
                         });
                         // Butona tıklandığında animasyon
