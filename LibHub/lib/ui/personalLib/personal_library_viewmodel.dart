@@ -64,14 +64,22 @@ class PersonalLibraryViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  // Firestore'dan favori kitapları çeken metod
-  Future<void> fetchFavoriteBooks() async {
+  // Belirli bir kullanıcının favori kitaplarını Firestore'dan çeken metod
+  Future<void> fetchFavoriteBooks(String userId) async {
     setBusy(true);
     try {
-      QuerySnapshot snapshot =
-          await _firestore.collection('favorite_books').get();
-      _favoriteBooks =
-          snapshot.docs.map((doc) => Book.fromFirestore(doc)).toList();
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(userId).get();
+      List<dynamic> favoriteBookIds = userDoc['favoriteBooks'];
+
+      List<Book> favoriteBooksList = [];
+      for (String bookId in favoriteBookIds) {
+        DocumentSnapshot bookDoc =
+            await _firestore.collection('books').doc(bookId).get();
+        favoriteBooksList.add(Book.fromFirestore(bookDoc));
+      }
+
+      _favoriteBooks = favoriteBooksList;
       notifyListeners();
     } catch (e) {
       print(e);
@@ -80,9 +88,9 @@ class PersonalLibraryViewModel extends BaseViewModel {
   }
 
   // Başlatma işlemi sırasında Firestore'dan verileri çek
-  Future<void> initialize() async {
+  Future<void> initialize(String userId) async {
     await fetchBooks();
-    await fetchFavoriteBooks();
+    await fetchFavoriteBooks(userId);
   }
 
   // Kitap ekleme metodunu Firestore'a eklemek için güncelle

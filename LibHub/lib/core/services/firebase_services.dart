@@ -12,7 +12,8 @@ class FirebaseService {
     return firebaseAuth.currentUser!;
   }
 
-  Future<String?> login(BuildContext context, email, String password) async {
+  Future<String?> login(
+      BuildContext context, String email, String password) async {
     String? res;
     try {
       final result = await firebaseAuth.signInWithEmailAndPassword(
@@ -26,7 +27,8 @@ class FirebaseService {
       }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-        case "user-not-found" || "wrong-password":
+        case "user-not-found":
+        case "wrong-password":
           res = "User is not found or invalid password";
           break;
         case "user-disabled":
@@ -125,12 +127,19 @@ class FirebaseService {
             .get();
 
         if (querySnapshot.docs.isEmpty) {
+
           String uid = userCredential.user!.uid;
 
           await FirebaseFirestore.instance.collection('users').doc(uid).set({
             'userName': displayName,
             'email': email,
           });
+
+
+         // await firebaseFirestore.collection("users").add({
+         //   "email": email,
+         //   "userName": displayName,
+         // });
 
           status = true;
         } else {
@@ -162,8 +171,18 @@ class FirebaseService {
     await firebaseAuth.signOut();
   }
 
+
   void saveBookToPersonalLib(
       {required String bookName, required String userEmail}) async {
+
+  // Kitap bilgilerini Firestore'a kaydeder
+  Future<void> saveBookToPersonalLib({
+    required String bookName,
+    required String bookAuthor,
+    required String bookImage,
+    required String userEmail,
+  }) async {
+
     try {
       final userQuerySnapshot = await firebaseFirestore
           .collection("users")
@@ -171,12 +190,13 @@ class FirebaseService {
           .get();
 
       if (userQuerySnapshot.docs.isNotEmpty) {
-        // Assuming there is only one document for the given email
+        // Kullanıcı bulunmuşsa, 'favoriteBooks' koleksiyonuna kitap ekle
         DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
 
-        // Access the 'advices' sub-collection and add a new document
-        userDoc.reference.collection("favoriteBooks").add({
+        await userDoc.reference.collection("favoriteBooks").add({
           "bookName": bookName,
+          "bookAuthor": bookAuthor,
+          "bookImage": bookImage,
           "date": DateTime.now(),
         });
 
@@ -188,6 +208,7 @@ class FirebaseService {
       log("Error adding book to lib: $e");
     }
   }
+
 
   Future<String> getUserName() async {
     String email = getCurrentUser().email!;
@@ -209,4 +230,5 @@ class FirebaseService {
       return "İsimsiz Kullanıcı";
     }
   }
+
 }
