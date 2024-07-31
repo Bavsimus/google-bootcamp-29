@@ -58,30 +58,27 @@ class FirebaseService {
   }) async {
     String? res;
     try {
-      final result = await firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
           email: email.trim(), password: password.trim());
-      
-        User? user = result.user;
 
-         if (user != null) {
-      await user.updateDisplayName(userName);
-      await user.reload(); // Bilgileri güncellemek için.
-      user = FirebaseAuth.instance.currentUser;
-      print("User's Display Name: ${user?.displayName}");
-    } else {
-      print("User creation failed.");
-    }
+      User? user = userCredential.user;
 
-
-      try {
-        final resultData = await firebaseFirestore.collection("users").add({
-          "userName": userName,
-          "email": email,
-          "city": city,
-        });
-      } catch (e) {
-        log("catch 2 ->$e");
+      if (user != null) {
+        await user.updateDisplayName(userName);
+        await user.reload(); // Bilgileri güncellemek için.
+        user = FirebaseAuth.instance.currentUser;
+        print("User's Display Name: ${user?.displayName}");
+      } else {
+        print("User creation failed.");
       }
+
+      String uid = userCredential.user!.uid;
+
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'userName': userName,
+        'email': email,
+        'city': city,
+      });
     } on FirebaseAuthException catch (e) {
       log("catch 1 ->${e.code}");
       switch (e.code) {
@@ -130,10 +127,20 @@ class FirebaseService {
             .get();
 
         if (querySnapshot.docs.isEmpty) {
-          await firebaseFirestore.collection("users").add({
-            "email": email,
-            "userName": displayName,
+
+          String uid = userCredential.user!.uid;
+
+          await FirebaseFirestore.instance.collection('users').doc(uid).set({
+            'userName': displayName,
+            'email': email,
           });
+
+
+         // await firebaseFirestore.collection("users").add({
+         //   "email": email,
+         //   "userName": displayName,
+         // });
+
           status = true;
         } else {
           log("Kullanıcı zaten mevcut");
@@ -164,6 +171,10 @@ class FirebaseService {
     await firebaseAuth.signOut();
   }
 
+
+  void saveBookToPersonalLib(
+      {required String bookName, required String userEmail}) async {
+
   // Kitap bilgilerini Firestore'a kaydeder
   Future<void> saveBookToPersonalLib({
     required String bookName,
@@ -171,6 +182,7 @@ class FirebaseService {
     required String bookImage,
     required String userEmail,
   }) async {
+
     try {
       final userQuerySnapshot = await firebaseFirestore
           .collection("users")
@@ -196,4 +208,27 @@ class FirebaseService {
       log("Error adding book to lib: $e");
     }
   }
+
+
+  Future<String> getUserName() async {
+    String email = getCurrentUser().email!;
+
+    try {
+      final userQuerySnapshot = await firebaseFirestore
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .get();
+
+      if (userQuerySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userDoc = userQuerySnapshot.docs.first;
+        return userDoc.get("userName");
+      } else {
+        return "İsimsiz Kullanıcı";
+      }
+    } catch (e) {
+      log("Error getting user name: $e");
+      return "İsimsiz Kullanıcı";
+    }
+  }
+
 }
