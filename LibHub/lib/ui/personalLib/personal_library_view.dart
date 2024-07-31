@@ -1,6 +1,6 @@
 import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
-import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
+import 'package:libhub/ui/personalLib/personal_library_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:libhub/home_ui/book.dart';
 
