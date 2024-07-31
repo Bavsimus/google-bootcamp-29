@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:libhub/home_ui/book.dart';
 
 class BookListViewModel extends BaseViewModel {
@@ -18,16 +19,29 @@ class BookListViewModel extends BaseViewModel {
     _fetchBooks();
   }
 
-  void _fetchBooks() {
-    FirebaseFirestore.instance
-        .collection('books')
-        .snapshots()
-        .listen((snapshot) {
-      final books = snapshot.docs.map((doc) => Book.fromDocument(doc)).toList();
-      _books = books;
-      _filteredBooks = books;
+  Future<void> _fetchBooks() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final uid = currentUser.uid;
+
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('personalLibrary')
+          .snapshots()
+          .listen((snapshot) {
+        final books =
+            snapshot.docs.map((doc) => Book.fromDocument(doc)).toList();
+        _books = books;
+        _filteredBooks = books;
+        notifyListeners();
+      });
+    } else {
+      // Handle case where there is no current user (e.g., user is not logged in)
+      _books = [];
+      _filteredBooks = [];
       notifyListeners();
-    });
+    }
   }
 
   void filterBooks(String searchText) {
