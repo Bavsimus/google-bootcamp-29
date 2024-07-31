@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 class FirebaseService {
   final firebaseAuth = FirebaseAuth.instance;
   final firebaseFirestore = FirebaseFirestore.instance;
@@ -57,30 +56,27 @@ class FirebaseService {
   }) async {
     String? res;
     try {
-      final result = await firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
           email: email.trim(), password: password.trim());
-      
-        User? user = result.user;
 
-         if (user != null) {
-      await user.updateDisplayName(userName);
-      await user.reload(); // Bilgileri güncellemek için.
-      user = FirebaseAuth.instance.currentUser;
-      print("User's Display Name: ${user?.displayName}");
-    } else {
-      print("User creation failed.");
-    }
+      User? user = userCredential.user;
 
-
-      try {
-        final resultData = await firebaseFirestore.collection("users").add({
-          "userName": userName,
-          "email": email,
-          "city": city,
-        });
-      } catch (e) {
-        log("catch 2 ->$e");
+      if (user != null) {
+        await user.updateDisplayName(userName);
+        await user.reload(); // Bilgileri güncellemek için.
+        user = FirebaseAuth.instance.currentUser;
+        print("User's Display Name: ${user?.displayName}");
+      } else {
+        print("User creation failed.");
       }
+
+      String uid = userCredential.user!.uid;
+
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'userName': userName,
+        'email': email,
+        'city': city,
+      });
     } on FirebaseAuthException catch (e) {
       log("catch 1 ->${e.code}");
       switch (e.code) {
@@ -98,61 +94,63 @@ class FirebaseService {
     return res;
   }
 
-Future<bool> googleSignIn() async {
-  bool status = false;
+  Future<bool> googleSignIn() async {
+    bool status = false;
 
-  try {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
+    try {
+      GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return status;
+      }
+
+      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      User? user = userCredential.user;
+      String? email = user?.email;
+      String? displayName = user?.displayName;
+
+      log("Kullanıcı adı: $displayName, E-posta: $email");
+
+      if (email != null) {
+        final querySnapshot = await firebaseFirestore
+            .collection("users")
+            .where("email", isEqualTo: email)
+            .get();
+
+        if (querySnapshot.docs.isEmpty) {
+          String uid = userCredential.user!.uid;
+
+          await FirebaseFirestore.instance.collection('users').doc(uid).set({
+            'userName': displayName,
+            'email': email,
+          });
+
+          status = true;
+        } else {
+          log("Kullanıcı zaten mevcut");
+          status = true;
+        }
+        return status;
+      }
+    } catch (e) {
+      log("googleSignIn error -> $e");
+      status = false;
       return status;
     }
 
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
-    User? user = userCredential.user;
-    String? email = user?.email;
-    String? displayName = user?.displayName;
-
-    log("Kullanıcı adı: $displayName, E-posta: $email");
-
-    if (email != null) {
-      final querySnapshot = await firebaseFirestore
-          .collection("users")
-          .where("email", isEqualTo: email)
-          .get();
-
-      if (querySnapshot.docs.isEmpty) {
-        await firebaseFirestore.collection("users").add({
-          "email": email,
-          "userName": displayName,
-        });
-        status = true;
-      } else {
-        log("Kullanıcı zaten mevcut");
-        status = true;
-      }
-      return  status;
-    }
-  } catch (e) {
-    log("googleSignIn error -> $e");
-    status = false;
-    return  status;
+    return status;
   }
-
-  return  status;
-}
 
   Future signInAnonymously() async {
     try {
-      UserCredential userCredential =
-          await firebaseAuth.signInAnonymously();
+      UserCredential userCredential = await firebaseAuth.signInAnonymously();
       User? user = userCredential.user;
       log("User id: ${user?.uid}");
     } catch (e) {
@@ -160,17 +158,13 @@ Future<bool> googleSignIn() async {
     }
   }
 
-
   Future<void> signOut() async {
     await firebaseAuth.signOut();
   }
 
-
-
   void saveBookToPersonalLib(
       {required String bookName, required String userEmail}) async {
     try {
-
       final userQuerySnapshot = await firebaseFirestore
           .collection("users")
           .where("email", isEqualTo: userEmail)
@@ -195,7 +189,6 @@ Future<bool> googleSignIn() async {
     }
   }
 
-
   Future<String> getUserName() async {
     String email = getCurrentUser().email!;
 
@@ -216,6 +209,4 @@ Future<bool> googleSignIn() async {
       return "İsimsiz Kullanıcı";
     }
   }
-
-
 }
