@@ -114,16 +114,15 @@
 <p>Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Discord düzeni bu şekildedir:</p>
 <img src="readmeassets/sprint1/discord1.png" alt="Discord Düzeni">
 <details>
-<summary><h3>Ürün Durumu</h3><summary>
-<p>Ekran görüntüleri:</p>
-<img src="readmeassets/sprint1/ss/login1.jpeg" alt="Screenshot 1">
-<img src="readmeassets/sprint1/ss/login2.jpeg" alt="Screenshot 1">
-<img src="readmeassets/sprint1/ss/login3.jpeg" alt="Screenshot 1">
-<img src="readmeassets/sprint1/ss/hompage.jpeg" alt="Homepage Screenshot">
-<img src="readmeassets/sprint1/ss/addbook.jpeg" alt="Add Book Screenshot">
-<img src="readmeassets/sprint1/ss/adbook2.jpeg" alt="Add Book 2 Screenshot">
-<img src="readmeassets/sprint1/ss/bookscan.jpeg" alt="Book Scan Screenshot">
-<img src="readmeassets/sprint1/ss/yourlibhub.jpeg" alt="Your LibHub Screenshot">
+  <summary><h3>Ürün Durumu</h3><summary>
+  <img src="readmeassets/sprint1/ss/login1.jpeg" alt="Screenshot 1">
+  <img src="readmeassets/sprint1/ss/login2.jpeg" alt="Screenshot 1">
+  <img src="readmeassets/sprint1/ss/login3.jpeg" alt="Screenshot 1">
+  <img src="readmeassets/sprint1/ss/hompage.jpeg" alt="Homepage Screenshot">
+  <img src="readmeassets/sprint1/ss/addbook.jpeg" alt="Add Book Screenshot">
+  <img src="readmeassets/sprint1/ss/adbook2.jpeg" alt="Add Book 2 Screenshot">
+  <img src="readmeassets/sprint1/ss/bookscan.jpeg" alt="Book Scan Screenshot">
+  <img src="readmeassets/sprint1/ss/yourlibhub.jpeg" alt="Your LibHub Screenshot">
 </details>
 <h3>Sprint Review</h3>
 <p>Alınan kararlar: Katmanlı mimari çerçevesinde çalışılacaktır. Veritabanı oluşturması kullanıcı verileri ve kitap bilgileri için gerekli görülmüştür, bir sonraki sprint için planlandı. İlk sprint için gerekli görülen tasklar tamamlanmıştır, birbirleriyle bağlanabilir olmaları testi başarılı olmuştur fakat bağlantı işlemleri önümüzdeki sprinte planlanmıştır. Temel sayfalar ve fonksiyonlar oluşturulmuştur fakat elde edilen görüntü birbiriyle uyumlu hale getirilecektir.</p>
