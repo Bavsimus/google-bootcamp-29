@@ -110,11 +110,6 @@
   </table>
   </details> 
 
-  <details>
-    <summary><h3>Sprint 1 - Sprint Board</h3></summary>
-    <img src="readmeassets\sprint1/trello.png" style="max-width: 100%; height: auto;">
-  </details>
-
   - **Sprint Notları**:
     - User Story'ler product backlog hazırlandı.
     - Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir.
