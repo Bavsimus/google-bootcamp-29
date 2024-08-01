@@ -1,5 +1,6 @@
 import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
+import 'package:libhub/core/services/firebase_services.dart';
 import 'package:libhub/ui/personalLib/personal_library_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:libhub/home_ui/book.dart';
@@ -76,17 +77,13 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
     final filteredBooks = viewModel.filteredBooks.where((book) {
       final bookTitle = book.name.toLowerCase();
       final bookAuthor = book.author.toLowerCase();
-      return bookTitle.contains(_searchTerm) ||
-          bookAuthor.contains(_searchTerm);
+      return bookTitle.contains(_searchTerm) || bookAuthor.contains(_searchTerm);
     }).toList();
 
     return ListView.builder(
       itemCount: (filteredBooks.length / itemsPerRow).ceil(),
       itemBuilder: (context, rowIndex) {
-        final rowBooks = filteredBooks
-            .skip(rowIndex * itemsPerRow)
-            .take(itemsPerRow)
-            .toList();
+        final rowBooks = filteredBooks.skip(rowIndex * itemsPerRow).take(itemsPerRow).toList();
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -127,8 +124,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                             textAlign: TextAlign.center,
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
                               book.author,
                               style: TextStyle(
@@ -171,8 +167,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                   children: <Widget>[
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.network(book.imageUrl,
-                          height: 200, fit: BoxFit.cover),
+                      child: Image.network(book.imageUrl, height: 200, fit: BoxFit.cover),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -211,10 +206,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                       child: Container(
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: isPressed
-                              ? Colors.orange
-                              : Colors
-                                  .transparent, // Tıklama durumuna göre renk
+                          color: isPressed ? Colors.orange : Colors.transparent, // Tıklama durumuna göre renk
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: Colors.orange, // İkonun rengi
@@ -223,10 +215,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                         ),
                         child: Icon(
                           Icons.remove_circle_outline,
-                          color: isPressed
-                              ? Colors.white
-                              : Colors
-                                  .orange, // Tıklama durumuna göre ikon rengi
+                          color: isPressed ? Colors.white : Colors.orange, // Tıklama durumuna göre ikon rengi
                           size: 32, // İkonun boyutu
                         ),
                       ),

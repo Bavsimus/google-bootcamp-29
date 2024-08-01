@@ -189,6 +189,23 @@ class FirebaseService {
     }
   }
 
+  // Future<void> deleteBookFromPersonalLib({
+  //   required String bookImage,
+  // }) async {
+  //   try {
+  //     User currentUser = FirebaseAuth.instance.currentUser!;
+  //     String userUid = currentUser.uid;
+
+  //     DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
+  //     DocumentReference bookDoc = userDoc.collection('personalLibrary').doc(bookImage);
+
+  //     await bookDoc.delete();
+  //     log('Kitap başarıyla silindi.');
+  //   } catch (e) {
+  //     log("Error deleting book from personal library: $e");
+  //   }
+  // }
+
   Future<String> getUserName() async {
     String uid = getCurrentUser().uid;
 
