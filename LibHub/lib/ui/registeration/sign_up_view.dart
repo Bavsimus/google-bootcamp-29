@@ -20,7 +20,7 @@ class SignUpView extends StatelessWidget {
         builder: (context, viewmodel, child) => Scaffold(
               appBar: AppBar(
                 title: const Center(
-                  child:  Text('LibHub',
+                  child: Text('LibHub',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
@@ -77,7 +77,6 @@ class SignUpView extends StatelessWidget {
                             labelText: "City",
                             isCompulsory: true,
                             iconData: Icons.location_city,
-                            isObscureText: true,
                           ),
 
                           // Row(

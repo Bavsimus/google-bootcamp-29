@@ -1,4 +1,3 @@
-
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
@@ -24,53 +23,65 @@ class UserRegisterationDataField extends StatelessWidget {
     this.isCompulsory = false,
   });
 
+  bool obscureText = true;
+  final ValueNotifier<bool> _obscureTextNotifier = ValueNotifier<bool>(true);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: TextFormField(
-        controller: controller,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-          hintText: hintText,
-          prefixIcon:
-              Icon(iconData, color: const Color.fromARGB(255, 71, 188, 167)),
-          // prefixIcon: Row(
-          //   children: [
-          //     const SizedBox(width: 20),
-          //     Icon(iconData, color: const Color.fromARGB(255, 71, 188, 167)),
-          //     Text(isCompulsory ? "*" : "",
-          //         style: const TextStyle(color: Colors.red, fontSize: 25)),
-          //   ],
-          // ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: const BorderSide(color: Colors.green, width: 1.5),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: const BorderSide(
-              width: 1.5,
+      padding: const EdgeInsets.only(left: 10, right: 30),
+      child: ValueListenableBuilder(
+        valueListenable: _obscureTextNotifier,
+        builder: (context, obscureText, child) {
+          return TextFormField(
+            obscureText: isObscureText && obscureText,
+            controller: controller,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              suffixIcon: isPassword
+                  ? IconButton(
+                      icon: Icon(
+                        obscureText ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        _obscureTextNotifier.value =
+                            !_obscureTextNotifier.value;
+                      },
+                    )
+                  : null,
+              hintText: hintText,
+              prefixIcon: Icon(iconData,
+                  color: const Color.fromARGB(255, 71, 188, 167)),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: const BorderSide(color: Colors.green, width: 1.5),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: const BorderSide(
+                  width: 1.5,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 71, 188, 167),
+                  width: 1.5,
+                ),
+              ),
             ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: const BorderSide(
-              color: Color.fromARGB(255, 71, 188, 167),
-              width: 1.5,
-            ),
-          ),
-        ),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'Please Enter $labelText';
-          }
-          if (isPassword && value.length < 6) {
-            return 'Password must be at least 6 characters';
-          }
-          return null;
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please Enter $labelText';
+              }
+              if (isPassword && value.length < 6) {
+                return 'Password must be at least 6 characters';
+              }
+              return null;
+            },
+            onSaved: (value) {},
+          );
         },
-        onSaved: (value) {},
       ),
     );
   }
