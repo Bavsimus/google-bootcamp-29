@@ -12,12 +12,10 @@ class FirebaseService {
     return firebaseAuth.currentUser!;
   }
 
-  Future<String?> login(
-      BuildContext context, String email, String password) async {
+  Future<String?> login(BuildContext context, String email, String password) async {
     String? res;
     try {
-      final result = await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      final result = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       log("result(login) -> $result");
 
       if (result.user != null) {
@@ -58,8 +56,8 @@ class FirebaseService {
   }) async {
     String? res;
     try {
-      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
-          email: email.trim(), password: password.trim());
+      final userCredential =
+          await firebaseAuth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
 
       User? user = userCredential.user;
 
@@ -111,8 +109,7 @@ class FirebaseService {
         idToken: googleAuth.idToken,
       );
 
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
       User? user = userCredential.user;
       String? email = user?.email;
@@ -121,10 +118,7 @@ class FirebaseService {
       log("Kullanıcı adı: $displayName, E-posta: $email");
 
       if (email != null) {
-        final querySnapshot = await firebaseFirestore
-            .collection("users")
-            .where("email", isEqualTo: email)
-            .get();
+        final querySnapshot = await firebaseFirestore.collection("users").where("email", isEqualTo: email).get();
 
         if (querySnapshot.docs.isEmpty) {
           String uid = userCredential.user!.uid;
@@ -173,14 +167,21 @@ class FirebaseService {
       User currentUser = firebaseAuth.currentUser!;
       String userUid = currentUser.uid;
 
-      DocumentReference userDoc =
-          firebaseFirestore.collection('users').doc(userUid);
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
+      final existingBooks = await userDoc.collection('personalLibrary').where('bookImage', isEqualTo: bookImage).get();
 
-      await userDoc.collection('personalLibrary').add({
-        'bookName': bookName,
-        'bookAuthor': bookAuthor,
-        'bookImage': bookImage,
-      });
+      if (existingBooks.docs.isEmpty) {
+        // Eğer aynı kitap yoksa ekle
+        await userDoc.collection('personalLibrary').add({
+          'bookName': bookName,
+          'bookAuthor': bookAuthor,
+          'bookImage': bookImage,
+        });
+        log('Kitap başarıyla eklendi.');
+      } else {
+        // Aynı kitap zaten varsa ekleme
+        log('Bu kitap zaten kütüphanede mevcut.');
+      }
 
       log("New book added successfully.");
     } catch (e) {
@@ -188,12 +189,28 @@ class FirebaseService {
     }
   }
 
+  // Future<void> deleteBookFromPersonalLib({
+  //   required String bookImage,
+  // }) async {
+  //   try {
+  //     User currentUser = FirebaseAuth.instance.currentUser!;
+  //     String userUid = currentUser.uid;
+
+  //     DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
+  //     DocumentReference bookDoc = userDoc.collection('personalLibrary').doc(bookImage);
+
+  //     await bookDoc.delete();
+  //     log('Kitap başarıyla silindi.');
+  //   } catch (e) {
+  //     log("Error deleting book from personal library: $e");
+  //   }
+  // }
+
   Future<String> getUserName() async {
     String uid = getCurrentUser().uid;
 
     try {
-      final userDoc =
-          await firebaseFirestore.collection("users").doc(uid).get();
+      final userDoc = await firebaseFirestore.collection("users").doc(uid).get();
 
       if (userDoc.exists) {
         return userDoc.get("userName");
