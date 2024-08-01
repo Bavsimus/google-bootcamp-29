@@ -254,7 +254,7 @@ class FirebaseService {
       DocumentReference userDoc =
           FirebaseFirestore.instance.collection('users').doc(userUid);
 
-      // Kişisel kütüphane koleksiyonundan kitabı silme
+      // Delete the book from the personal library collection
       final existingBooks = await userDoc
           .collection('personalLibrary')
           .where('bookName', isEqualTo: bookName)
@@ -268,7 +268,36 @@ class FirebaseService {
         log('Bu kitap kişisel kütüphanede bulunamadı.');
       }
 
-      // Favori kitaplar koleksiyonundan kitabı silme
+      // Delete the book from the favorites collection
+      final favoriteBooks = await userDoc
+          .collection('favourites')
+          .where('bookName', isEqualTo: bookName)
+          .where('bookAuthor', isEqualTo: bookAuthor)
+          .get();
+
+      if (favoriteBooks.docs.isNotEmpty) {
+        await favoriteBooks.docs.first.reference.delete();
+        log('Kitap başarıyla favorilerden silindi.');
+      } else {
+        log('Bu kitap favorilerde bulunamadı.');
+      }
+    } catch (e) {
+      log("Error removing book: $e");
+    }
+  }
+
+  Future<void> removeBookFromFavourites({
+    required String bookName,
+    required String bookAuthor,
+  }) async {
+    try {
+      User currentUser = firebaseAuth.currentUser!;
+      String userUid = currentUser.uid;
+
+      DocumentReference userDoc =
+          FirebaseFirestore.instance.collection('users').doc(userUid);
+
+      // Delete the book from the favorites collection
       final favoriteBooks = await userDoc
           .collection('favourites')
           .where('bookName', isEqualTo: bookName)
