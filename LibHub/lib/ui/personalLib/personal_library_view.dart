@@ -212,16 +212,26 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Column(
+                        Column(
                           children: [
-                            Text("Mark as",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.red,
-                                )),
-                            Text("Favorite",
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.red)),
+                            if (!isPressed_like)
+                              const Text("Mark as",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.red,
+                                  )),
+                            if (!isPressed_like)
+                              const Text("Favorite",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.red)),
+                            if (isPressed_like)
+                              const Text("Remove From",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.red)),
+                            if (isPressed_like)
+                              const Text("Favorites",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.red)),
                           ],
                         ),
                         SizedBox(width: 16),
@@ -229,15 +239,23 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                           borderRadius: BorderRadius.circular(35),
                           onTap: () {
                             setState(() {
-                              isPressed_like =
-                                  !isPressed_like; // Tıklama durumunu değiştirir
-                              firebaseService.AddBookToFavorites(
-                                bookName: book.name,
-                                bookAuthor: book.author,
-                                bookImage: book.imageUrl,
-                                context: context,
-                              );
+                              if (isPressed_like) {
+                                isPressed_like = false;
+                                firebaseService.removeBookFromFavourites(
+                                    bookName: book.name,
+                                    bookAuthor: book.author);
+                              } else {
+                                isPressed_like = true;
+                                firebaseService.AddBookToFavorites(
+                                  bookName: book.name,
+                                  bookAuthor: book.author,
+                                  bookImage: book.imageUrl,
+                                  context: context,
+                                );
+                              }
                             });
+                            
+
                             // Butona tıklandığında animasyon
                             Future.delayed(Duration(milliseconds: 300), () {
                               Navigator.of(context).pop(); // Dialog'u kapatır.
