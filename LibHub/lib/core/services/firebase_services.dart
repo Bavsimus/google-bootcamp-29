@@ -189,22 +189,48 @@ class FirebaseService {
     }
   }
 
-  // Future<void> deleteBookFromPersonalLib({
-  //   required String bookImage,
-  // }) async {
-  //   try {
-  //     User currentUser = FirebaseAuth.instance.currentUser!;
-  //     String userUid = currentUser.uid;
+  Future<void> removeBookFromPersonalLib({
+  required String bookName,
+  required String bookAuthor,
+}) async {
+  try {
+    User currentUser = firebaseAuth.currentUser!;
+    String userUid = currentUser.uid;
 
-  //     DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
-  //     DocumentReference bookDoc = userDoc.collection('personalLibrary').doc(bookImage);
+    DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
+    final existingBooks = await userDoc.collection('personalLibrary')
+      .where('bookName', isEqualTo: bookName)
+      .where('bookAuthor', isEqualTo: bookAuthor)
+      .get();
 
-  //     await bookDoc.delete();
-  //     log('Kitap başarıyla silindi.');
-  //   } catch (e) {
-  //     log("Error deleting book from personal library: $e");
-  //   }
-  // }
+    if (existingBooks.docs.isNotEmpty) {
+      await existingBooks.docs.first.reference.delete();
+      log('Kitap başarıyla silindi.');
+    } else {
+      log('Bu kitap kütüphanede bulunamadı.');
+    }
+  } catch (e) {
+    log("Error removing book from personal library: $e");
+  }
+}
+
+
+// Future<void> deleteBookFromPersonalLib({
+//   required String bookImage,
+// }) async {
+//   try {
+//     User currentUser = FirebaseAuth.instance.currentUser!;
+//     String userUid = currentUser.uid;
+
+//     DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
+//     DocumentReference bookDoc = userDoc.collection('personalLibrary').doc(bookImage);
+
+//     await bookDoc.delete();
+//     log('Kitap başarıyla silindi.');
+//   } catch (e) {
+//     log("Error deleting book from personal library: $e");
+//   }
+// }
 
   Future<String> getUserName() async {
     String uid = getCurrentUser().uid;

@@ -12,6 +12,8 @@ class PersonalLibraryView extends StatefulWidget {
 
 class _PersonalLibraryViewState extends State<PersonalLibraryView> {
   final TextEditingController _searchController = TextEditingController();
+  final firebaseService = FirebaseService();
+
   String _searchTerm = "";
 
   @override
@@ -77,13 +79,17 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
     final filteredBooks = viewModel.filteredBooks.where((book) {
       final bookTitle = book.name.toLowerCase();
       final bookAuthor = book.author.toLowerCase();
-      return bookTitle.contains(_searchTerm) || bookAuthor.contains(_searchTerm);
+      return bookTitle.contains(_searchTerm) ||
+          bookAuthor.contains(_searchTerm);
     }).toList();
 
     return ListView.builder(
       itemCount: (filteredBooks.length / itemsPerRow).ceil(),
       itemBuilder: (context, rowIndex) {
-        final rowBooks = filteredBooks.skip(rowIndex * itemsPerRow).take(itemsPerRow).toList();
+        final rowBooks = filteredBooks
+            .skip(rowIndex * itemsPerRow)
+            .take(itemsPerRow)
+            .toList();
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -124,7 +130,8 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                             textAlign: TextAlign.center,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
                               book.author,
                               style: TextStyle(
@@ -167,7 +174,8 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                   children: <Widget>[
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.network(book.imageUrl, height: 200, fit: BoxFit.cover),
+                      child: Image.network(book.imageUrl,
+                          height: 200, fit: BoxFit.cover),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -193,32 +201,60 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(height: 16),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          isPressed = !isPressed; // Tıklama durumunu değiştirir
-                        });
-                        // Butona tıklandığında animasyon
-                        Future.delayed(Duration(milliseconds: 300), () {
-                          Navigator.of(context).pop(); // Dialog'u kapatır.
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isPressed ? Colors.orange : Colors.transparent, // Tıklama durumuna göre renk
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.orange, // İkonun rengi
-                            width: 2, // Sınır kalınlığı
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Column(
+                          children: [
+                            Text("Remove Book From",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.orange,
+                                )),
+                            Text("Personal Library",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.orange)),
+                          ],
+                        ),
+                        SizedBox(width: 16),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(35),
+                          onTap: () {
+                            setState(() {
+                              isPressed =
+                                  !isPressed; // Tıklama durumunu değiştirir
+                              firebaseService.removeBookFromPersonalLib(
+                                  bookName: book.name, bookAuthor: book.author);
+                            });
+                            // Butona tıklandığında animasyon
+                            Future.delayed(Duration(milliseconds: 300), () {
+                              Navigator.of(context).pop(); // Dialog'u kapatır.
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: isPressed
+                                  ? Colors.orange
+                                  : Colors
+                                      .transparent, // Tıklama durumuna göre renk
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.orange, // İkonun rengi
+                                width: 2, // Sınır kalınlığı
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.remove_circle_outline,
+                              color: isPressed
+                                  ? Colors.white
+                                  : Colors
+                                      .orange, // Tıklama durumuna göre ikon rengi
+                              size: 32, // İkonun boyutu
+                            ),
                           ),
-                        ),
-                        child: Icon(
-                          Icons.remove_circle_outline,
-                          color: isPressed ? Colors.white : Colors.orange, // Tıklama durumuna göre ikon rengi
-                          size: 32, // İkonun boyutu
-                        ),
-                      ),
+                        )
+                      ],
                     ),
                   ],
                 ),

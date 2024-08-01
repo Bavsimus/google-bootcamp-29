@@ -199,42 +199,61 @@ class _AddBookState extends State<AddBook> {
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(height: 16),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          isPressed = !isPressed; // Tıklama durumunu değiştirir
-                          firebaseService.saveBookToPersonalLib(
-                            bookName: book.name,
-                            bookAuthor: book.author,
-                            bookImage: book.imageUrl,
-                          );
-                        });
-                        // Butona tıklandığında animasyon
-                        Future.delayed(Duration(milliseconds: 300), () {
-                          Navigator.of(context).pop(); // Dialog'u kapatır.
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isPressed
-                              ? Colors.pink
-                              : Colors
-                                  .transparent, // Tıklama durumuna göre renk
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.pink, // İkonun rengi
-                            width: 2, // Sınır kalınlığı
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Column(
+                          children: [
+                            Text("Add Book To",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.pink)),
+                            Text("Personal Library",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.pink)),
+                          ],
+                        ),
+                        SizedBox(width: 16),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(35),
+                          onTap: () {
+                            setState(() {
+                              isPressed =
+                                  !isPressed; // Tıklama durumunu değiştirir
+                              firebaseService.saveBookToPersonalLib(
+                                bookName: book.name,
+                                bookAuthor: book.author,
+                                bookImage: book.imageUrl,
+                              );
+                            });
+                            // Butona tıklandığında animasyon
+                            Future.delayed(Duration(milliseconds: 300), () {
+                              Navigator.of(context).pop(); // Dialog'u kapatır.
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: isPressed
+                                  ? Colors.pink
+                                  : Colors
+                                      .transparent, // Tıklama durumuna göre renk
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.pink, // İkonun rengi
+                                width: 2, // Sınır kalınlığı
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.add_circle_outline,
+                              color: isPressed
+                                  ? Colors.white
+                                  : Colors
+                                      .pink, // Tıklama durumuna göre ikon rengi
+                              size: 32, // İkonun boyutu
+                            ),
                           ),
-                        ),
-                        child: Icon(
-                          Icons.add_circle_outline,
-                          color: isPressed
-                              ? Colors.white
-                              : Colors.pink, // Tıklama durumuna göre ikon rengi
-                          size: 32, // İkonun boyutu
-                        ),
-                      ),
+                        )
+                      ],
                     ),
                   ],
                 ),
