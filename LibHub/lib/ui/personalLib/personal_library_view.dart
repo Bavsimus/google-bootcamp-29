@@ -244,25 +244,30 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                             });
                           },
                           child: Container(
-                            padding: EdgeInsets.all(12),
+                            padding: EdgeInsets.all(
+                                12), // Container'ın içindeki boşluk
                             decoration: BoxDecoration(
                               color: isPressed_like
                                   ? Colors.red
                                   : Colors
-                                      .transparent, // Tıklama durumuna göre renk
-                              shape: BoxShape.circle,
+                                      .transparent, // Tıklama durumuna göre arka plan rengi
+                              shape:
+                                  BoxShape.circle, // Container'ın şekli daire
                               border: Border.all(
-                                color: Colors.red, // İkonun rengi
-                                width: 2, // Sınır kalınlığı
+                                color: Colors.red, // Kenarlık rengi kırmızı
+                                width: 2, // Kenarlık kalınlığı 2 birim
                               ),
                             ),
                             child: Icon(
-                              Icons.favorite,
+                              isPressed_like
+                                  ? Icons.heart_broken
+                                  : Icons
+                                      .favorite, // Tıklama durumuna göre ikon
                               color: isPressed_like
                                   ? Colors.white
                                   : Colors
                                       .red, // Tıklama durumuna göre ikon rengi
-                              size: 32, // İkonun boyutu
+                              size: 32, // İkon boyutu 32 birim
                             ),
                           ),
                         )
