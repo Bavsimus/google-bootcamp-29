@@ -96,43 +96,45 @@
 
 <hr>
 
-
-<summary><h1>Sprint 1</h1></summary>
-
-<h3>Sprint Notları</h3>
-<p>User Story'ler product backlog hazırlandı.</p>
-
-<h3>Backlog düzeni ve Story seçimleri</h3>
-<p>Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir.</p>
-<p>Story'ler yapılacak işlere (task'lere) bölünmüştür. Tasklar kendi içinde optional ve must şeklinde kontrol listeleriyle hazırlandı. Trello görüntüleri aşağıda paylaşıldı.</p>
-
-<p>Sprint içinde tamamlanması tahmin edilen puan: 100 Puan</p>
-<p>Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 320 puanlık backlog bulunmaktadır. 4 sprint'e bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.</p>
-<p>Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır. Story başına çıkan tahmin puanı, toplam puanın yarısından az tutulmuştur.</p>
-
-<h3>Daily Scrum</h3>
-<p>Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Discord düzeni bu şekildedir:</p>
-<img src="readmeassets/sprint1/discord1.png" alt="Discord Düzeni">
 <details>
-  <summary><h3>Ürün Durumu</h3><summary>
-  <img src="readmeassets/sprint1/ss/login1.jpeg" alt="Screenshot 1">
-  <img src="readmeassets/sprint1/ss/login2.jpeg" alt="Screenshot 1">
-  <img src="readmeassets/sprint1/ss/login3.jpeg" alt="Screenshot 1">
-  <img src="readmeassets/sprint1/ss/hompage.jpeg" alt="Homepage Screenshot">
-  <img src="readmeassets/sprint1/ss/addbook.jpeg" alt="Add Book Screenshot">
-  <img src="readmeassets/sprint1/ss/adbook2.jpeg" alt="Add Book 2 Screenshot">
-  <img src="readmeassets/sprint1/ss/bookscan.jpeg" alt="Book Scan Screenshot">
-  <img src="readmeassets/sprint1/ss/yourlibhub.jpeg" alt="Your LibHub Screenshot">
-</details>
-<h3>Sprint Review</h3>
-<p>Alınan kararlar: Katmanlı mimari çerçevesinde çalışılacaktır. Veritabanı oluşturması kullanıcı verileri ve kitap bilgileri için gerekli görülmüştür, bir sonraki sprint için planlandı. İlk sprint için gerekli görülen tasklar tamamlanmıştır, birbirleriyle bağlanabilir olmaları testi başarılı olmuştur fakat bağlantı işlemleri önümüzdeki sprinte planlanmıştır. Temel sayfalar ve fonksiyonlar oluşturulmuştur fakat elde edilen görüntü birbiriyle uyumlu hale getirilecektir.</p>
+    <summary><h1>Sprint 1</h1></summary>
+  <details>
+    <summary><h3>Sprint 1 - Ekran görüntüleri</h3></summary>
+  <table style="width: 100%;">
+    <tr>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/login1.jpeg" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/login2.jpeg" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/login3.jpeg" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/hompage.jpeg" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/addbook.jpeg" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/adbook2.jpeg" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/bookscan.jpeg" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint1/ss/yourlibhub.jpeg" style="max-width: 100%; height: auto;"></td>
+  </table>
+  </details> 
 
-<h3>Sprint Retrospective</h3>
-<p>Takımın toplantı planlamaları gözden geçirilmeli katılım artmalı ve çakışmalar engellenmelidir.</p>
+  <details>
+    <summary><h3>Sprint 1 - Sprint Board</h3></summary>
+    <img src="readmeassets\sprint1/trello.png" style="max-width: 100%; height: auto;">
+  </details>
 
-<h3>Diğer Notlar</h3>
-<p>N/A</p>
-</details>
+  - **Sprint Notları**:
+    - User Story'ler product backlog hazırlandı.
+    - Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir.
+    - Story'ler yapılacak işlere (task'lere) bölünmüştür. Tasklar kendi içinde optional ve must şeklinde kontrol listeleriyle hazırlandı. Trello görüntüleri aşağıda paylaşıldı.
+    - Backlog düzeni ve Story seçimleri: 
+      - Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır. Story başına çıkan tahmin puanı, toplam puanın yarısından az tutulmuştur.
+  - **Sprint içinde tamamlanması tahmin edilen puan**: 100 puan.
+  - **Puan tamamlama mantığı**: Toplamda proje boyunca tamamlanması gereken 320 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
+  - **Daily Scrum**: Daily Scrum toplantıları Discord üzerinden yapılmaya devam etmekte, ayrıca WhatsApp üzerinden de iletişimdeyiz.
+    - <img src="readmeassets\sprint1/discord1.png" style="max-width: 100%; height: auto;">
+  - **Sprint Review**:
+    - Katmanlı mimari çerçevesinde çalışılacaktır. Veritabanı oluşturması kullanıcı verileri ve kitap bilgileri için gerekli görülmüştür, bir sonraki sprint için planlandı. İlk sprint için gerekli görülen tasklar tamamlanmıştır, birbirleriyle bağlanabilir olmaları testi başarılı olmuştur fakat bağlantı işlemleri önümüzdeki sprinte planlanmıştır. Temel sayfalar ve fonksiyonlar oluşturulmuştur fakat elde edilen görüntü birbiriyle uyumlu hale getirilecektir.
+  - **Sprint Retrospective:**
+    - Takımın toplantı planlamaları gözden geçirilmeli katılım artmalı ve çakışmalar engellenmelidir.
+  - **Other Notes**: N/A
+  </details>
+
 
  <details>
     <summary><h1>Sprint 2</h1></summary>
