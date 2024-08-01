@@ -93,10 +93,7 @@
 <details>
 <h2>Kanban</h2>
 <img src="readmeassets/sprint1/kanban1.png" alt="Trello">
-
 <hr>
-
-<details>
     <summary><h1>Sprint 1</h1></summary>
   <details>
     <summary><h3>Sprint 1 - Ekran görüntüleri</h3></summary>
