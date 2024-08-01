@@ -235,6 +235,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                                 bookName: book.name,
                                 bookAuthor: book.author,
                                 bookImage: book.imageUrl,
+                                context: context,
                               );
                             });
                             // Butona tıklandığında animasyon
