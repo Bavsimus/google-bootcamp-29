@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:libhub/core/services/firebase_services.dart';
-import 'package:libhub/home_ui/book.dart';
-import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
+import 'package:libhub/ui/home_ui/book.dart';
+import 'package:libhub/ui/home_ui/home_page_filtered_view_model.dart';
 
 class AddBook extends StatefulWidget {
   @override
@@ -193,11 +193,11 @@ class _AddBookState extends State<AddBook> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    Text(
-                      "Here you can add a description or any other details about the book.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    // Text(
+                    //   "Here you can add a description or any other details about the book.",
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(fontSize: 16),
+                    // ),
                     SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

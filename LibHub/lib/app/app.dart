@@ -1,4 +1,4 @@
-import 'package:libhub/home_ui/home_ui.dart';
+import 'package:libhub/ui/home_ui/home_ui.dart';
 import 'package:libhub/ui/registeration/forget_password_view.dart';
 import 'package:libhub/ui/personalLib/personal_library_view.dart';
 import 'package:libhub/ui/registeration/login_view.dart';

@@ -7,7 +7,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i8;
 import 'package:flutter/material.dart';
-import 'package:libhub/home_ui/home_ui.dart' as _i3;
+import 'package:libhub/ui/home_ui/home_ui.dart' as _i3;
 import 'package:libhub/ui/personalLib/personal_library_view.dart' as _i7;
 import 'package:libhub/ui/registeration/forget_password_view.dart' as _i5;
 import 'package:libhub/ui/registeration/login_view.dart' as _i2;

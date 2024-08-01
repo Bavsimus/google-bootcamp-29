@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:libhub/home_ui/home_page_filtered.dart';
-import 'package:libhub/home_ui/home_screen.dart';
-import 'package:libhub/home_ui/add_book.dart';
+import 'package:libhub/ui/home_ui/home_page_filtered.dart';
+import 'package:libhub/ui/home_ui/home_screen.dart';
+import 'package:libhub/ui/home_ui/add_book.dart';
 import 'package:libhub/ui/personalLib/profile_tab.dart';
 import 'package:libhub/ui/personalLib/personal_library_view.dart';
 import 'package:stacked/stacked.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:libhub/home_ui/home_view_model.dart';
+import 'package:libhub/ui/home_ui/home_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 class HomePage extends StatefulWidget {

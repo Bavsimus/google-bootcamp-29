@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:libhub/core/services/firebase_services.dart';
 import 'package:libhub/ui/personalLib/personal_library_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-import 'package:libhub/home_ui/book.dart';
+import 'package:libhub/ui/home_ui/book.dart';
 
 class PersonalLibraryView extends StatefulWidget {
   @override
@@ -106,7 +106,11 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                   child: Container(
                     margin: EdgeInsets.all(8),
                     child: GestureDetector(
-                      onTap: () => _showBookDialog(context, book),
+                      onTap: () async => _showBookDialog(
+                          context,
+                          book,
+                          await firebaseService.isBookInFavorites(
+                              bookName: book.name, bookAuthor: book.author)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,8 +158,13 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
     );
   }
 
-  void _showBookDialog(BuildContext context, Book book) {
-    bool isPressed = false;
+  void _showBookDialog(BuildContext context, Book book, bool isLiked) async {
+    bool isPressed_remove = false;
+    bool isPressed_like = false;
+
+    bool isFavorite = await firebaseService
+        .isBookInFavorites(bookName: book.name, bookAuthor: book.author)
+        .then((value) => isPressed_like = value);
 
     showDialog(
       context: context,
@@ -195,10 +204,68 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    Text(
-                      "Here you can add a description or any other details about the book.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
+                    // Text(
+                    //   "Here you can add a description or any other details about the book.",
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(fontSize: 16),
+                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Column(
+                          children: [
+                            Text("Mark as",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                )),
+                            Text("Favorite",
+                                style:
+                                    TextStyle(fontSize: 16, color: Colors.red)),
+                          ],
+                        ),
+                        SizedBox(width: 16),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(35),
+                          onTap: () {
+                            setState(() {
+                              isPressed_like =
+                                  !isPressed_like; // Tıklama durumunu değiştirir
+                              firebaseService.AddBookToFavorites(
+                                bookName: book.name,
+                                bookAuthor: book.author,
+                                bookImage: book.imageUrl,
+                              );
+                            });
+                            // Butona tıklandığında animasyon
+                            Future.delayed(Duration(milliseconds: 300), () {
+                              Navigator.of(context).pop(); // Dialog'u kapatır.
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: isPressed_like
+                                  ? Colors.red
+                                  : Colors
+                                      .transparent, // Tıklama durumuna göre renk
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.red, // İkonun rengi
+                                width: 2, // Sınır kalınlığı
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.favorite,
+                              color: isPressed_like
+                                  ? Colors.white
+                                  : Colors
+                                      .red, // Tıklama durumuna göre ikon rengi
+                              size: 32, // İkonun boyutu
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     SizedBox(height: 16),
                     Row(
@@ -221,8 +288,8 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                           borderRadius: BorderRadius.circular(35),
                           onTap: () {
                             setState(() {
-                              isPressed =
-                                  !isPressed; // Tıklama durumunu değiştirir
+                              isPressed_remove =
+                                  !isPressed_remove; // Tıklama durumunu değiştirir
                               firebaseService.removeBookFromPersonalLib(
                                   bookName: book.name, bookAuthor: book.author);
                             });
@@ -234,7 +301,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                           child: Container(
                             padding: EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: isPressed
+                              color: isPressed_remove
                                   ? Colors.orange
                                   : Colors
                                       .transparent, // Tıklama durumuna göre renk
@@ -246,7 +313,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                             ),
                             child: Icon(
                               Icons.remove_circle_outline,
-                              color: isPressed
+                              color: isPressed_remove
                                   ? Colors.white
                                   : Colors
                                       .orange, // Tıklama durumuna göre ikon rengi
