@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:libhub/home_ui/book.dart';
+import 'package:libhub/ui/home_ui/book.dart';
 
 class BookListViewModel extends BaseViewModel {
   String _searchText = "";
@@ -53,15 +53,4 @@ class BookListViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void addToFavorites(Book book) {
-    if (!_favorites.contains(book)) {
-      _favorites.add(book);
-      notifyListeners();
-    }
-  }
-
-  void removeFromFavorites(Book book) {
-    _favorites.remove(book);
-    notifyListeners();
-  }
 }

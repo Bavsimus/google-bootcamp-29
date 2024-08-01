@@ -12,6 +12,7 @@ class ProfileTab extends StatefulWidget {
 class _ProfileTabState extends State<ProfileTab> {
   bool _isEditingBooks = false;
   bool _isEditingCategory = false;
+
   String _selectedCategory = 'All';
   final user = FirebaseAuth.instance.currentUser!;
 

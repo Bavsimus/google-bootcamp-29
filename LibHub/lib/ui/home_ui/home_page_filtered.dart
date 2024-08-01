@@ -1,7 +1,8 @@
 import 'dart:math'; // Rastgele kitap seçimi için gerekli
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:libhub/home_ui/home_page_filtered_view_model.dart';
+import 'package:libhub/core/services/firebase_services.dart';
+import 'package:libhub/ui/home_ui/home_page_filtered_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 import 'book.dart';
@@ -12,6 +13,8 @@ class BookListScreen extends StatefulWidget {
 }
 
 class _BookListScreenState extends State<BookListScreen> {
+  final firebaseService = FirebaseService();
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BookListViewModel>.reactive(
@@ -245,44 +248,67 @@ class _BookListScreenState extends State<BookListScreen> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    Text(
-                      "Here you can add a description or any other details about the book.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    // Text(
+                    //   "Here you can add a description or any other details about the book.",
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(fontSize: 16),
+                    // ),
                     SizedBox(height: 16),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          isPressed = !isPressed; // Tıklama durumunu değiştirir
-                        });
-                        // Butona tıklandığında animasyon
-                        Future.delayed(Duration(milliseconds: 300), () {
-                          Navigator.of(context).pop(); // Dialog'u kapatır.
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isPressed
-                              ? Colors.purple
-                              : Colors
-                                  .transparent, // Tıklama durumuna göre renk
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.purple, // İkonun rengi
-                            width: 2, // Sınır kalınlığı
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Column(
+                          children: [
+                            Text("Add Book To",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.purple)),
+                            Text("Personal Library",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.purple)),
+                          ],
+                        ),
+                        SizedBox(width: 16),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(35),
+                          onTap: () {
+                            setState(() {
+                              isPressed =
+                                  !isPressed; // Tıklama durumunu değiştirir
+                              firebaseService.saveBookToPersonalLib(
+                                bookName: book.name,
+                                bookAuthor: book.author,
+                                bookImage: book.imageUrl,
+                              );
+                            });
+                            // Butona tıklandığında animasyon
+                            Future.delayed(Duration(milliseconds: 300), () {
+                              Navigator.of(context).pop(); // Dialog'u kapatır.
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: isPressed
+                                  ? Colors.purple
+                                  : Colors
+                                      .transparent, // Tıklama durumuna göre renk
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.purple, // İkonun rengi
+                                width: 2, // Sınır kalınlığı
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.add_circle_outline,
+                              color: isPressed
+                                  ? Colors.white
+                                  : Colors
+                                      .purple, // Tıklama durumuna göre ikon rengi
+                              size: 32, // İkonun boyutu
+                            ),
                           ),
-                        ),
-                        child: Icon(
-                          Icons.add_circle_outline,
-                          color: isPressed
-                              ? Colors.white
-                              : Colors
-                                  .purple, // Tıklama durumuna göre ikon rengi
-                          size: 32, // İkonun boyutu
-                        ),
-                      ),
+                        )
+                      ],
                     ),
                   ],
                 ),

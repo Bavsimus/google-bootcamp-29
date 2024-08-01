@@ -12,10 +12,12 @@ class FirebaseService {
     return firebaseAuth.currentUser!;
   }
 
-  Future<String?> login(BuildContext context, String email, String password) async {
+  Future<String?> login(
+      BuildContext context, String email, String password) async {
     String? res;
     try {
-      final result = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      final result = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       log("result(login) -> $result");
 
       if (result.user != null) {
@@ -56,8 +58,8 @@ class FirebaseService {
   }) async {
     String? res;
     try {
-      final userCredential =
-          await firebaseAuth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
 
       User? user = userCredential.user;
 
@@ -109,7 +111,8 @@ class FirebaseService {
         idToken: googleAuth.idToken,
       );
 
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
       User? user = userCredential.user;
       String? email = user?.email;
@@ -118,7 +121,10 @@ class FirebaseService {
       log("Kullanıcı adı: $displayName, E-posta: $email");
 
       if (email != null) {
-        final querySnapshot = await firebaseFirestore.collection("users").where("email", isEqualTo: email).get();
+        final querySnapshot = await firebaseFirestore
+            .collection("users")
+            .where("email", isEqualTo: email)
+            .get();
 
         if (querySnapshot.docs.isEmpty) {
           String uid = userCredential.user!.uid;
@@ -158,6 +164,46 @@ class FirebaseService {
     await firebaseAuth.signOut();
   }
 
+  Future<void> AddBookToFavorites({
+    required String bookName,
+    required String bookAuthor,
+    required String bookImage,
+  }) async {
+    try {
+      User currentUser = firebaseAuth.currentUser!;
+      String userUid = currentUser.uid;
+
+      DocumentReference userDoc =
+          FirebaseFirestore.instance.collection('users').doc(userUid);
+      final existingBooks = await userDoc
+          .collection('favorites')
+          .where('bookImage', isEqualTo: bookImage)
+          .get();
+      final numberOfFavorites = await userDoc
+          .collection('favorites')
+          .get()
+          .then((value) => value.docs.length);
+
+      if (numberOfFavorites >= 5) {
+        // TODO: Uyarı mesajını kullanıcıya göster
+        log('There are already 5 books in favorites');
+      } else if (existingBooks.docs.isEmpty) {
+        await userDoc.collection('favorites').add({
+          'bookName': bookName,
+          'bookAuthor': bookAuthor,
+          'bookImage': bookImage,
+        });
+        log('Kitap başarıyla eklendi.');
+      } else {
+        log('Book already exists in favorites.');
+      }
+
+      log("New book added successfully.");
+    } catch (e) {
+      log("Error adding book to personal library: $e");
+    }
+  }
+
   Future<void> saveBookToPersonalLib({
     required String bookName,
     required String bookAuthor,
@@ -167,8 +213,12 @@ class FirebaseService {
       User currentUser = firebaseAuth.currentUser!;
       String userUid = currentUser.uid;
 
-      DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
-      final existingBooks = await userDoc.collection('personalLibrary').where('bookImage', isEqualTo: bookImage).get();
+      DocumentReference userDoc =
+          FirebaseFirestore.instance.collection('users').doc(userUid);
+      final existingBooks = await userDoc
+          .collection('personalLibrary')
+          .where('bookImage', isEqualTo: bookImage)
+          .get();
 
       if (existingBooks.docs.isEmpty) {
         // Eğer aynı kitap yoksa ekle
@@ -189,28 +239,78 @@ class FirebaseService {
     }
   }
 
-  // Future<void> deleteBookFromPersonalLib({
-  //   required String bookImage,
-  // }) async {
-  //   try {
-  //     User currentUser = FirebaseAuth.instance.currentUser!;
-  //     String userUid = currentUser.uid;
+  Future<void> removeBookFromPersonalLib({
+    required String bookName,
+    required String bookAuthor,
+  }) async {
+    try {
+      User currentUser = firebaseAuth.currentUser!;
+      String userUid = currentUser.uid;
 
-  //     DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
-  //     DocumentReference bookDoc = userDoc.collection('personalLibrary').doc(bookImage);
+      DocumentReference userDoc =
+          FirebaseFirestore.instance.collection('users').doc(userUid);
+      final existingBooks = await userDoc
+          .collection('personalLibrary')
+          .where('bookName', isEqualTo: bookName)
+          .where('bookAuthor', isEqualTo: bookAuthor)
+          .get();
 
-  //     await bookDoc.delete();
-  //     log('Kitap başarıyla silindi.');
-  //   } catch (e) {
-  //     log("Error deleting book from personal library: $e");
-  //   }
-  // }
+      if (existingBooks.docs.isNotEmpty) {
+        await existingBooks.docs.first.reference.delete();
+        log('Kitap başarıyla silindi.');
+      } else {
+        log('Bu kitap kütüphanede bulunamadı.');
+      }
+    } catch (e) {
+      log("Error removing book from personal library: $e");
+    }
+  }
+
+Future<bool> isBookInFavorites({
+  required String bookName,
+  required String bookAuthor,
+}) async {
+  try {
+    User currentUser = firebaseAuth.currentUser!;
+    String userUid = currentUser.uid;
+
+    DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
+    final existingBooks = await userDoc.collection('favorites')
+      .where('bookName', isEqualTo: bookName)
+      .where('bookAuthor', isEqualTo: bookAuthor)
+      .get();
+
+    return existingBooks.docs.isNotEmpty;
+  } catch (e) {
+    log("Error checking book in favorites: $e");
+    return false;
+  }
+}
+
+
+// Future<void> deleteBookFromPersonalLib({
+//   required String bookImage,
+// }) async {
+//   try {
+//     User currentUser = FirebaseAuth.instance.currentUser!;
+//     String userUid = currentUser.uid;
+
+//     DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userUid);
+//     DocumentReference bookDoc = userDoc.collection('personalLibrary').doc(bookImage);
+
+//     await bookDoc.delete();
+//     log('Kitap başarıyla silindi.');
+//   } catch (e) {
+//     log("Error deleting book from personal library: $e");
+//   }
+// }
 
   Future<String> getUserName() async {
     String uid = getCurrentUser().uid;
 
     try {
-      final userDoc = await firebaseFirestore.collection("users").doc(uid).get();
+      final userDoc =
+          await firebaseFirestore.collection("users").doc(uid).get();
 
       if (userDoc.exists) {
         return userDoc.get("userName");
