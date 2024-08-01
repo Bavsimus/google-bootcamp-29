@@ -254,6 +254,7 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                                 );
                               }
                             });
+                            
 
                             // Butona tıklandığında animasyon
                             Future.delayed(Duration(milliseconds: 300), () {
