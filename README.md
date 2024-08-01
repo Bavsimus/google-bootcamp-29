@@ -184,5 +184,77 @@
   </table>
   </details> 
   </details>
+
+<details>
+  <summary><h1>Sprint 3</h1></summary>
+
+<details>
+  <summary><h2>Sprint 3 - Kanban</h2></summary>
+  <img src="readmeassets/sprint3/kanban1.png" alt="Trello">
+  <img src="readmeassets/sprint3/kanban2.png" alt="Trello">
+  <img src="readmeassets/sprint3/kanban3.png" alt="Trello">
+</details>
+
+<details>
+    <summary><h3>Sprint 3 - Ekran görüntüleri</h3></summary>
+  <table style="width: 100%;">
+    <tr>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss1.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss2.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss3.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss4.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss5.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss6.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss7.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss8.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/ss9.png" style="max-width: 100%; height: auto;"></td>
+  </table>
+  </details> 
+
+  <details>
+    <summary><h3>Sprint 3 - Firebase görüntüleri</h3></summary>
+  <table style="width: 100%;">
+    <tr>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/fb1.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/fb2.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/fb3.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/fb4.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/fb5.png" style="max-width: 100%; height: auto;"></td>
+  </table>
+  </details>
+
+- **Sprint Notları**:
+    - Firebase kullanıcı ve kitap konfigürasyonları yapıldı, her kulllanıcının kendi favori kitaplarını ve okuduğu kitapları kaydetmek için gerekli dökümanlar ve koleksiyonlar uygulama tarafından otomatik oluşturuluyor.
+    - Ui güncellemeleri yapıldı, genel olarak uygulamanın görünüşünde büyük değişiklikler yapıldı. İşlevsellik için hazırlanmış arayüz yerini konforlu bir arayüze bıraktı.
+    - Önceki sprintlerde gözden kaçan ufak detaylar giderildi.
+    - Anasayfa için o günlerde populer kitaplar ve arkadaşların yeni kitapları özellikleri eklendi.
+    - Kitapların üzerine tıklandığında bilgilerini ve kendi kütüphanene ekle butonunu içeren bir baloncuk eklendi.
+    - Add sayfasında bütün kitaplar gözükmekte, üst bölüme search bar eklenerek karışıklık giderildi bu sayede kitaplarınızı rahatlıkla kütüphanenize ekleyebilirsiniz.
+    - Personal Lib bölümünde bütünlüğü korumak adına Add bölümüyle benzer UI hazırlandı. Aynı şekilde üst kısımda kendi kütüphaneniz içinde arama yapabileceğiniz bir search bar yerleştirdik. Ne kadar çok kitap o kadar çok bilgi!
+    - Profil bölümünde en çok okuduğunuz kategoriyi, kullanıcı bilgilerinizi ve favori 5 kitabınızı görebilirsiniz.
+    - Kitap takaslamaya ne dersin? :smiley:
+  - **Sprint içinde tamamlanması tahmin edilen puan**: 120 puan.
+  - **Puan tamamlama mantığı**: 
+    - Toplamda proje boyunca tamamlanması gereken 320 puanlık backlog bulunmaktadır. 3.sprint için 120 puan tamamlanmasına karar verildi.
+  - **Daily Scrum**: 
+    - Daily Scrum toplantıları Discord üzerinden yapılmaya devam etmekte, ayrıca WhatsApp üzerinden de iletişimdeyiz.
+  - **Sprint Review**:
+    - Üçüncü sprint için gerekli görülen tasklar tamamlanmıştır.
+    - Tamamlanan taskların bağlantı işlemleri tamamlanmıştır.
+    - Ürün görünüş ve fonksiyonalite olarak kullanıcıya sunulmaya hazırdır.
+  - **Sprint Retrospective:**
+    - Bootcamp sonlanmış olsa bile devamında eklemek istediğimiz ve daha önceden konuşup yetiştiremediğimiz özelliklerin eklenmesi değerlendirilmiştir.
+
+  <details>
+    <summary><h3>Daily Scrum Ekran görüntüleri</h3></summary>
+  <table style="width: 100%;">
+    <tr>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/dailys.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/dailys1.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/dailys3.png" style="max-width: 100%; height: auto;"></td>
+      <td colspan="1" style="width: 25%;"><img src="readmeassets\sprint3/dailys4.png" style="max-width: 100%; height: auto;"></td>
+  </table>
+  </details>
+</details>
 </body>
 </html>
