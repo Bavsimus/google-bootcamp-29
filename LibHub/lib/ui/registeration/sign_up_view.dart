@@ -101,7 +101,7 @@ class SignUpView extends StatelessWidget {
                           // ),
                           const SizedBox(height: 10),
                           CustomRegisterationButton(
-                              text: "Sign In",
+                              text: "Sign Up",
                               onPressed: () async {
                                 viewmodel.pressOnSignIn(context);
                               }),

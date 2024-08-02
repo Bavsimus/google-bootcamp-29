@@ -19,7 +19,10 @@ class BookListViewModel extends BaseViewModel {
   }
 
   void _fetchBooks() {
-    FirebaseFirestore.instance.collection('books').snapshots().listen((snapshot) {
+    FirebaseFirestore.instance
+        .collection('books')
+        .snapshots()
+        .listen((snapshot) {
       final books = snapshot.docs.map((doc) => Book.fromDocument(doc)).toList();
       _books = books;
       _filteredBooks = books;
@@ -29,7 +32,10 @@ class BookListViewModel extends BaseViewModel {
 
   void filterBooks(String searchText) {
     _searchText = searchText;
-    _filteredBooks = _books.where((book) => book.name.toLowerCase().contains(searchText.toLowerCase())).toList();
+    _filteredBooks = _books
+        .where((book) =>
+            book.name.toLowerCase().contains(searchText.toLowerCase()))
+        .toList();
     notifyListeners();
   }
 
