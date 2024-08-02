@@ -45,6 +45,13 @@ dev_dependencies:
   stacked_generator: ^1.6.0
   build_runner: ">=2.3.0 <4.0.0"
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
+  
 
 flutter:
   # The following line ensures that the Material Icons font is

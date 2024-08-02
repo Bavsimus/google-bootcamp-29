@@ -249,5 +249,7 @@
   </table>
   </details>
 </details>
+
+<a href="https://www.w3schools.com/">Apk dosyasını indirmek için tıklayın.</a>
 </body>
 </html>
