@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:libhub/core/services/firebase_services.dart';
 import 'package:libhub/ui/home_ui/home_page_filtered_view_model.dart';
 import 'package:stacked/stacked.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'book.dart';
 
@@ -248,12 +249,6 @@ class _BookListScreenState extends State<BookListScreen> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    // Text(
-                    //   "Here you can add a description or any other details about the book.",
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(fontSize: 16),
-                    // ),
-                    SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -278,6 +273,15 @@ class _BookListScreenState extends State<BookListScreen> {
                                 bookName: book.name,
                                 bookAuthor: book.author,
                                 bookImage: book.imageUrl,
+                              );
+                              Fluttertoast.showToast(
+                                msg: "Book added to Personal Library",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.purple,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
                               );
                             });
                             // Butona tıklandığında animasyon

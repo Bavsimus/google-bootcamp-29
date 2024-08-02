@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   salomon_bottom_bar: ^3.3.2
+  fluttertoast: ^8.0.9
 
   #STATE_MANAGEMENT
   stacked: ^3.4.3

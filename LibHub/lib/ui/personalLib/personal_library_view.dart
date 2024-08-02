@@ -4,6 +4,7 @@ import 'package:libhub/core/services/firebase_services.dart';
 import 'package:libhub/ui/personalLib/personal_library_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:libhub/ui/home_ui/book.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PersonalLibraryView extends StatefulWidget {
   @override
@@ -204,11 +205,6 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    // Text(
-                    //   "Here you can add a description or any other details about the book.",
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(fontSize: 16),
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -244,6 +240,14 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                                 firebaseService.removeBookFromFavourites(
                                     bookName: book.name,
                                     bookAuthor: book.author);
+                                Fluttertoast.showToast(
+                                    msg: "Removed from favorites",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
                               } else {
                                 isPressed_like = true;
                                 firebaseService.AddBookToFavorites(
@@ -252,6 +256,14 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                                   bookImage: book.imageUrl,
                                   context: context,
                                 );
+                                Fluttertoast.showToast(
+                                    msg: "Added to favorites",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.green,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
                               }
                             });
 
@@ -315,6 +327,14 @@ class _PersonalLibraryViewState extends State<PersonalLibraryView> {
                                   !isPressed_remove; // Tıklama durumunu değiştirir
                               firebaseService.removeBookFromPersonalLib(
                                   bookName: book.name, bookAuthor: book.author);
+                              Fluttertoast.showToast(
+                                  msg: "Removed from personal library",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.orange,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
                             });
                             // Butona tıklandığında animasyon
                             Future.delayed(Duration(milliseconds: 300), () {
