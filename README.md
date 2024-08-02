@@ -250,6 +250,6 @@
   </details>
 </details>
 
-<a href="https://www.w3schools.com/">Apk dosyasını indirmek için tıklayın.</a>
+<a href="https://drive.google.com/file/d/14IZnEMGMGO_3rt_vMlWJUbVxVFsSzN8O/view?usp=sharing">Apk dosyasını indirmek için tıklayın.</a>
 </body>
 </html>
